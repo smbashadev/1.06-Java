@@ -1,0 +1,709 @@
+# 8. Map in Java — 3LEVEL
+
+**Training Rule:** No Generics. All examples use normal/raw collection syntax. Generics will be taught separately in Topic 14.
+
+The **3LEVEL** approach means we learn each concept at three depths:
+
+* **LEVEL 1 — Basic:** What it is
+* **LEVEL 2 — Understanding:** How and why it works
+* **LEVEL 3 — Practical:** Program, output, and important points
+
+---
+
+# 1. Map Interface
+
+## LEVEL 1 — Basic
+
+`Map` is an interface used to store data in the form of:
+
+```text
+KEY → VALUE
+```
+
+Example:
+
+```text
+101 → Ravi
+102 → Kiran
+103 → Basha
+```
+
+Here:
+
+```text
+101, 102, 103 → Keys
+Ravi, Kiran, Basha → Values
+```
+
+Map belongs to:
+
+```java
+java.util
+```
+
+---
+
+## LEVEL 2 — Understanding
+
+A Map is useful when one piece of information identifies another.
+
+For example:
+
+```text
+Roll Number → Student Name
+Employee ID → Employee Name
+Country Code → Country
+Username → Password
+```
+
+Important rules:
+
+```text
+Duplicate key     → Not allowed
+Duplicate value   → Allowed
+```
+
+If we do:
+
+```java
+map.put(101, "Ravi");
+map.put(101, "Kiran");
+```
+
+the old value is replaced:
+
+```text
+101 → Kiran
+```
+
+---
+
+## LEVEL 3 — Practical
+
+```java
+import java.util.*;
+
+class Demo
+{
+    public static void main(String[] args)
+    {
+        Map map = new HashMap();
+
+        map.put(101, "Ravi");
+        map.put(102, "Kiran");
+        map.put(103, "Basha");
+
+        System.out.println(map);
+    }
+}
+```
+
+Important Map methods include:
+
+```text
+put()
+get()
+remove()
+containsKey()
+containsValue()
+size()
+isEmpty()
+clear()
+keySet()
+values()
+entrySet()
+```
+
+### Remember
+
+```text
+Map
+ ↓
+Key + Value
+ ↓
+Key identifies Value
+```
+
+---
+
+# 2. HashMap
+
+## LEVEL 1 — Basic
+
+`HashMap` is a class that implements `Map`.
+
+```java
+HashMap map = new HashMap();
+```
+
+It stores:
+
+```text
+KEY → VALUE
+```
+
+---
+
+## LEVEL 2 — Understanding
+
+HashMap is mainly used when:
+
+> We need a general-purpose Map and don't need guaranteed ordering.
+
+Example:
+
+```java
+map.put(101, "Ravi");
+map.put(102, "Kiran");
+map.put(103, "Basha");
+```
+
+HashMap does **not guarantee insertion order**.
+
+It allows:
+
+```text
+One null key       → Yes
+Multiple null values → Yes
+Duplicate keys     → No
+Duplicate values   → Yes
+```
+
+---
+
+## LEVEL 3 — Practical
+
+```java
+import java.util.*;
+
+class Demo
+{
+    public static void main(String[] args)
+    {
+        HashMap map = new HashMap();
+
+        map.put(101, "Ravi");
+        map.put(102, "Kiran");
+        map.put(103, "Basha");
+
+        System.out.println(map);
+    }
+}
+```
+
+### Duplicate key
+
+```java
+map.put(101, "Ravi");
+map.put(101, "Kiran");
+```
+
+Final mapping:
+
+```text
+101 → Kiran
+```
+
+### Main point
+
+```text
+HashMap
+   ↓
+General-purpose Map
+   ↓
+No guaranteed order
+```
+
+---
+
+# 3. LinkedHashMap
+
+## LEVEL 1 — Basic
+
+`LinkedHashMap` is a Map implementation that maintains **insertion order** during iteration.
+
+```java
+LinkedHashMap map = new LinkedHashMap();
+```
+
+---
+
+## LEVEL 2 — Understanding
+
+Suppose we insert:
+
+```java
+map.put(103, "Basha");
+map.put(101, "Ravi");
+map.put(102, "Kiran");
+```
+
+Insertion order:
+
+```text
+103
+101
+102
+```
+
+LinkedHashMap preserves that order when iterating.
+
+So conceptually:
+
+```text
+103 → Basha
+101 → Ravi
+102 → Kiran
+```
+
+It is not a sorted Map.
+
+---
+
+## LEVEL 3 — Practical
+
+```java
+import java.util.*;
+
+class Demo
+{
+    public static void main(String[] args)
+    {
+        LinkedHashMap map = new LinkedHashMap();
+
+        map.put(103, "Basha");
+        map.put(101, "Ravi");
+        map.put(102, "Kiran");
+
+        System.out.println(map);
+    }
+}
+```
+
+Expected representation:
+
+```text
+{103=Basha, 101=Ravi, 102=Kiran}
+```
+
+### Important
+
+```text
+LinkedHashMap
+       ↓
+Insertion order
+       ↓
+NOT sorted order
+```
+
+---
+
+# 4. TreeMap
+
+## LEVEL 1 — Basic
+
+`TreeMap` is a Map implementation that maintains its **keys in sorted order**.
+
+```java
+TreeMap map = new TreeMap();
+```
+
+---
+
+## LEVEL 2 — Understanding
+
+Suppose:
+
+```java
+map.put(103, "Basha");
+map.put(101, "Ravi");
+map.put(102, "Kiran");
+```
+
+We inserted:
+
+```text
+103
+101
+102
+```
+
+TreeMap sorts the keys:
+
+```text
+101
+102
+103
+```
+
+Therefore:
+
+```text
+101 → Ravi
+102 → Kiran
+103 → Basha
+```
+
+### Very important
+
+TreeMap sorts **keys**, not values.
+
+---
+
+## LEVEL 3 — Practical
+
+```java
+import java.util.*;
+
+class Demo
+{
+    public static void main(String[] args)
+    {
+        TreeMap map = new TreeMap();
+
+        map.put(103, "Basha");
+        map.put(101, "Ravi");
+        map.put(102, "Kiran");
+
+        System.out.println(map);
+    }
+}
+```
+
+Output:
+
+```text
+{101=Ravi, 102=Kiran, 103=Basha}
+```
+
+### Important rules
+
+```text
+Duplicate key     → No
+Duplicate value   → Yes
+Null key          → No in a normal natural-order TreeMap
+Null value        → Yes
+Sorted keys       → Yes
+```
+
+### Remember
+
+```text
+TreeMap
+   ↓
+Sorted
+   ↓
+KEYS
+```
+
+---
+
+# 5. Hashtable
+
+## LEVEL 1 — Basic
+
+`Hashtable` is an older, legacy implementation of `Map`.
+
+```java
+Hashtable table = new Hashtable();
+```
+
+---
+
+## LEVEL 2 — Understanding
+
+Hashtable is synchronized and does not allow null keys or null values.
+
+```text
+Null key     → ❌
+Null value   → ❌
+```
+
+It is important mainly because you will encounter it in older Java code and in interview comparisons.
+
+---
+
+## LEVEL 3 — Practical
+
+```java
+import java.util.*;
+
+class Demo
+{
+    public static void main(String[] args)
+    {
+        Hashtable table = new Hashtable();
+
+        table.put(101, "Ravi");
+        table.put(102, "Kiran");
+        table.put(103, "Basha");
+
+        System.out.println(table);
+    }
+}
+```
+
+This is invalid:
+
+```java
+table.put(null, "Ravi");
+```
+
+This is also invalid:
+
+```java
+table.put(101, null);
+```
+
+### Remember
+
+```text
+Hashtable
+    ↓
+Legacy
+    ↓
+Synchronized
+    ↓
+No null key
+No null value
+```
+
+---
+
+# 6. ConcurrentHashMap
+
+## LEVEL 1 — Basic
+
+`ConcurrentHashMap` is a Map designed for **concurrent access**.
+
+It belongs to:
+
+```java
+java.util.concurrent
+```
+
+Create it:
+
+```java
+ConcurrentHashMap map = new ConcurrentHashMap();
+```
+
+---
+
+## LEVEL 2 — Understanding
+
+Imagine several threads working with the same Map:
+
+```text
+Thread 1 ──┐
+Thread 2 ──┼──→ ConcurrentHashMap
+Thread 3 ──┘
+```
+
+ConcurrentHashMap provides concurrency-oriented behavior for this situation.
+
+It is a modern choice when multiple threads need to access and modify shared Map data.
+
+It does not permit:
+
+```text
+null key   ❌
+null value ❌
+```
+
+---
+
+## LEVEL 3 — Practical
+
+```java
+import java.util.concurrent.*;
+
+class Demo
+{
+    public static void main(String[] args)
+    {
+        ConcurrentHashMap map =
+            new ConcurrentHashMap();
+
+        map.put(101, "Ravi");
+        map.put(102, "Kiran");
+        map.put(103, "Basha");
+
+        System.out.println(map);
+    }
+}
+```
+
+### Remember
+
+```text
+ConcurrentHashMap
+        ↓
+Multiple threads
+        ↓
+Concurrent access
+        ↓
+No null keys
+No null values
+```
+
+Do not simply think:
+
+```text
+ConcurrentHashMap = Hashtable
+```
+
+They are different implementations with different concurrency designs.
+
+---
+
+# 7. WeakHashMap
+
+## LEVEL 1 — Basic
+
+`WeakHashMap` is a Map whose **keys are held using weak references**.
+
+```java
+WeakHashMap map = new WeakHashMap();
+```
+
+The special feature is:
+
+```text
+WeakHashMap
+     ↓
+Weakly referenced keys
+```
+
+---
+
+## LEVEL 2 — Understanding
+
+Consider:
+
+```java
+String key = new String("Java");
+```
+
+Then:
+
+```java
+WeakHashMap map = new WeakHashMap();
+
+map.put(key, "Programming");
+```
+
+The Map does not strongly retain the key in the same way an ordinary HashMap does.
+
+If the key becomes otherwise unreachable, it may become eligible for garbage collection.
+
+After garbage collection, the corresponding entry can disappear.
+
+Conceptually:
+
+```text
+Strong reference exists
+        ↓
+Key remains reachable
+
+Strong reference disappears
+        ↓
+Key may become eligible for GC
+        ↓
+WeakHashMap entry may disappear
+```
+
+---
+
+## LEVEL 3 — Practical
+
+```java
+import java.util.*;
+
+class Demo
+{
+    public static void main(String[] args)
+    {
+        WeakHashMap map = new WeakHashMap();
+
+        String key = new String("Java");
+
+        map.put(key, "Programming");
+
+        System.out.println("Before = " + map);
+
+        key = null;
+
+        System.gc();
+
+        System.out.println("After = " + map);
+    }
+}
+```
+
+You may observe the entry disappearing after garbage collection, but **do not treat that output as guaranteed**.
+
+Why?
+
+Because:
+
+```java
+System.gc();
+```
+
+is only a request to the JVM.
+
+It does not guarantee that garbage collection happens immediately.
+
+### Remember
+
+```text
+WeakHashMap
+      ↓
+Keys are weakly referenced
+      ↓
+If key becomes otherwise unreachable
+      ↓
+It may be garbage collected
+      ↓
+Entry may disappear
+```
+
+---
+
+# 8. All Seven Concepts — 3-Level Final Revision
+
+| Map Type              | LEVEL 1             | LEVEL 2                               | LEVEL 3                                           |
+| --------------------- | ------------------- | ------------------------------------- | ------------------------------------------------- |
+| **Map**               | Key-value interface | Key identifies value                  | `put()`, `get()`, `remove()` etc.                 |
+| **HashMap**           | General Map         | No guaranteed order                   | Allows null key/value                             |
+| **LinkedHashMap**     | Ordered Map         | Maintains insertion order             | Useful when insertion order matters               |
+| **TreeMap**           | Sorted Map          | Sorts keys                            | Natural key ordering                              |
+| **Hashtable**         | Legacy Map          | Synchronized                          | No null key/value                                 |
+| **ConcurrentHashMap** | Concurrent Map      | Designed for shared concurrent access | No null key/value                                 |
+| **WeakHashMap**       | Weak-key Map        | Keys can become GC-eligible           | Entry may disappear after key becomes unreachable |
+
+---
+
+# 9. The Ultimate Memory Diagram
+
+```text
+                         MAP
+                          │
+              ┌───────────┴───────────┐
+              │                       │
+          Interface              Implementations
+                                      │
+       ┌──────────────┬───────────────┼───────────────┬──────────────┬──────────────┐
+       │              │               │               │              │              │
+    HashMap     LinkedHashMap     TreeMap        Hashtable   ConcurrentHashMap  WeakHashMap
+       │              │               │               │              │              │
+    General       Insertion       Sorted          Legacy        Concurrent       Weak keys
+     purpose       order           keys         synchronized      access
+```
+
+## One-line exam memory
+
+> **HashMap → general, LinkedHashMap → insertion order, TreeMap → sorted keys, Hashtable → legacy synchronized, ConcurrentHashMap → concurrent access, WeakHashMap → weak keys.**
+
+**And, as required for your training notes, none of these examples uses Generics.**

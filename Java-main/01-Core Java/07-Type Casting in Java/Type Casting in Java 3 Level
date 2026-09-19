@@ -1,0 +1,366 @@
+Type Casting in Java — 3 LEVELS 
+
+Learn it in 3 stages: Beginner → Intermediate → Advanced.
+
+
+---
+
+🟢 LEVEL 1 — BEGINNER
+
+1. What is Type Casting?
+
+Type casting means converting a value from one data type to another compatible data type.
+
+Example:
+
+int x = 10;
+double y = x;
+
+Here:
+
+int → double
+
+The int value 10 becomes 10.0.
+
+
+---
+
+2. Two Main Types
+
+TYPE CASTING
+                  │
+          ┌───────┴───────┐
+          ▼               ▼
+      WIDENING         NARROWING
+      Automatic         Explicit
+
+Widening
+
+int x = 10;
+double y = x;
+
+small → large
+int → double
+
+✅ Automatic
+
+Narrowing
+
+double x = 10.5;
+int y = (int) x;
+
+large → small
+double → int
+
+✅ Explicit cast required
+
+Result:
+
+10
+
+
+---
+
+🟡 LEVEL 2 — INTERMEDIATE
+
+3. Widening Casting
+
+Think:
+
+> Small → Big → Automatic
+
+
+
+Common numeric widening:
+
+byte → short → int → long → float → double
+
+char can widen to:
+
+char → int → long → float → double
+
+Example:
+
+byte a = 10;
+int b = a;
+long c = b;
+double d = c;
+
+No explicit cast is required.
+
+⚠️ Important
+
+Widening does not always mean zero precision loss.
+
+For example, some large long values cannot be represented exactly by float or double.
+
+
+---
+
+4. Narrowing Casting
+
+Think:
+
+> Big → Small → Explicit
+
+
+
+Example:
+
+double x = 10.75;
+int y = (int) x;
+
+Result:
+
+10
+
+Syntax:
+
+targetType variable = (targetType) value;
+
+Example:
+
+long x = 100;
+int y = (int) x;
+
+
+---
+
+5. Widening vs Narrowing
+
+Widening	Narrowing
+
+Small/broader range direction	Larger/broader type to narrower type
+Usually automatic	Explicit cast generally required
+Usually safer	May lose information
+int → long	long → int
+int → double	double → int
+
+
+
+---
+
+🔴 LEVEL 3 — ADVANCED
+
+Now understand the traps.
+
+6. Casting Does Not Mean Rounding
+
+double x = 10.9;
+int y = (int) x;
+
+Result:
+
+10
+
+Not:
+
+11
+
+Casting to an integer truncates toward zero.
+
+10.9  → 10
+-10.9 → -10
+
+
+---
+
+7. Narrowing Can Cause Overflow
+
+int x = 130;
+byte y = (byte) x;
+
+byte range:
+
+-128 to 127
+
+Since 130 doesn't fit, the result is:
+
+-126
+
+So:
+
+> Explicit casting does not guarantee that the original value survives unchanged.
+
+
+
+
+---
+
+8. byte, short, and char Arithmetic
+
+This is a famous exam trap:
+
+byte a = 10;
+byte b = 20;
+
+byte c = a + b;   // ❌
+
+Why?
+
+Arithmetic generally promotes byte and short operands to int.
+
+byte + byte
+    ↓
+   int
+
+So:
+
+int c = a + b;    // ✅
+
+Or explicitly:
+
+byte c = (byte)(a + b);
+
+
+---
+
+9. char Casting
+
+char c = 'A';
+int x = c;
+
+This is widening:
+
+char → int
+
+'A' has the numeric value 65.
+
+Reverse:
+
+int x = 65;
+char c = (char) x;
+
+Result:
+
+'A'
+
+
+---
+
+10. Reference Type Casting
+
+Casting also applies to objects.
+
+Suppose:
+
+class Animal {
+}
+
+class Dog extends Animal {
+}
+
+Upcasting
+
+Dog d = new Dog();
+Animal a = d;
+
+Dog → Animal
+Child → Parent
+
+Usually automatic.
+
+
+---
+
+Downcasting
+
+Animal a = new Dog();
+Dog d = (Dog) a;
+
+Animal → Dog
+Parent reference → Child
+
+Explicit cast required.
+
+
+---
+
+⚠️ Downcasting Can Fail
+
+Animal a = new Cat();
+
+Dog d = (Dog) a;
+
+This can compile because Dog and Cat are related through Animal, but at runtime:
+
+Actual object = Cat
+Requested type = Dog
+
+So Java throws:
+
+ClassCastException
+
+
+---
+
+🧠 COMPLETE 3-LEVEL MAP
+
+TYPE CASTING
+                          │
+             ┌────────────┴────────────┐
+             ▼                         ▼
+        PRIMITIVE                  REFERENCE
+             │                         │
+       ┌─────┴─────┐             ┌─────┴─────┐
+       ▼           ▼             ▼           ▼
+   Widening    Narrowing      Upcasting   Downcasting
+   Automatic   Explicit       Child→Parent Parent→Child
+       │           │             │           │
+  int → long  double → int    Dog → Animal Animal → Dog
+
+
+---
+
+🔥 3-LEVEL MEMORY
+
+🟢 Level 1 — Just remember
+
+> Widening = automatic
+Narrowing = explicit
+
+
+
+🟡 Level 2 — Understand
+
+int → double       Widening
+double → int       Narrowing
+Dog → Animal       Upcasting
+Animal → Dog       Downcasting
+
+🔴 Level 3 — Master
+
+> Widening may still lose precision in some numeric conversions; narrowing may lose information or overflow; downcasting is checked against the actual runtime object and can throw ClassCastException.
+
+
+
+
+---
+
+🏆 Final Exam Formula
+
+SMALL → BIG
+   ↓
+WIDENING
+   ↓
+AUTOMATIC
+
+BIG → SMALL
+   ↓
+NARROWING
+   ↓
+EXPLICIT CAST
+
+CHILD → PARENT
+   ↓
+UPCASTING
+
+PARENT → CHILD
+   ↓
+DOWNCASTING
+   ↓
+May cause ClassCastException
+
+Golden sentence:
+
+> Type casting in Java is the conversion of a value or reference from one compatible type to another; primitive widening is generally automatic, primitive narrowing requires explicit casting, and reference downcasting can fail at runtime.

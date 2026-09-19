@@ -1,0 +1,47 @@
+# Java Introduction
+
+**Java** is a **high-level, object-oriented, class-based programming language and software platform** developed at **Sun Microsystems** in the early 1990s. It was designed to be **simple, secure, reliable, portable, and platform-independent**. Java was publicly introduced in **1995**, and its first major development kit, **JDK 1.0**, was released in **January 1996**.
+
+The most important feature of Java is **platform independence**. A Java program is not normally compiled directly into machine code for one specific computer. Instead, the Java compiler (`javac`) converts the source code into **bytecode**, stored in `.class` files. This bytecode is executed by the **Java Virtual Machine (JVM)**.
+
+```text
+Java Source (.java)
+        ↓
+     javac
+        ↓
+Bytecode (.class)
+        ↓
+       JVM
+        ↓
+Operating System / Hardware
+```
+
+This architecture led to Java's famous principle:
+
+> **“Write Once, Run Anywhere.”**
+
+The **JVM** is responsible for executing bytecode and provides important services such as memory management, garbage collection, exception handling, class loading, and runtime optimization. Modern JVMs also use **Just-In-Time (JIT) compilation** to convert frequently executed bytecode into optimized native machine code.
+
+Java is **object-oriented**, so programs are commonly organized using **classes and objects**. Its major OOP concepts include **encapsulation, inheritance, polymorphism, and abstraction**. Java is also **strongly and statically typed**, meaning variables have defined types that are checked by the compiler.
+
+Java provides a large **standard library** for collections, input/output, networking, concurrency, dates and times, security, and other common tasks. Important technologies built around Java include **JDBC** for database connectivity, **Servlets** for web applications, and modern frameworks such as **Spring Boot** for backend development.
+
+Java has evolved significantly over the years. **Java 5** introduced generics, annotations, and enums; **Java 8** introduced lambda expressions and Streams; **Java 9** introduced the module system; and later versions introduced features such as records, pattern matching, and virtual threads. Important **Long-Term Support (LTS)** releases include Java 11, 17, 21, and 25.
+
+Today, Java is widely used for **enterprise applications, backend systems, cloud services, financial software, distributed systems, APIs, and large-scale applications**.
+
+### Key points to remember
+
+* **Type:** High-level, object-oriented, class-based language
+* **Created at:** Sun Microsystems
+* **Main creator:** James Gosling and his team
+* **Publicly introduced:** 1995
+* **Compiler:** `javac`
+* **Intermediate code:** Bytecode
+* **Runtime:** JVM
+* **Development kit:** JDK
+* **Main advantage:** Platform independence
+* **Famous principle:** **Write Once, Run Anywhere**
+* **Major uses:** Enterprise, backend, cloud, distributed and large-scale software
+
+**In short:** Java combines a powerful programming language with the **JVM, standard libraries, and a large ecosystem**, allowing developers to build portable, reliable, and scalable applications.

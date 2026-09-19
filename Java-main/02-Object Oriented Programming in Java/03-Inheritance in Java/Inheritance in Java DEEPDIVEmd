@@ -1,0 +1,2234 @@
+# Inheritance in Java — DEEPDIVE
+
+Inheritance is one of the most important concepts in **OOPs (Object-Oriented Programming)**. It allows one class to acquire the accessible properties and methods of another class.
+
+The main purpose of inheritance is **code reusability** and creating an **IS-A relationship** between classes.
+
+---
+
+# 1. What is Inheritance?
+
+### Definition
+
+> **Inheritance is a mechanism in Java by which one class acquires the accessible properties and methods of another class.**
+
+The class whose members are inherited is called the:
+
+* **Parent Class**
+* **Super Class**
+* **Base Class**
+
+The class that inherits those members is called the:
+
+* **Child Class**
+* **Sub Class**
+* **Derived Class**
+
+### Syntax
+
+```java
+class Child extends Parent
+{
+    // child class members
+}
+```
+
+The `extends` keyword establishes the inheritance relationship between two classes.
+
+---
+
+# 2. Why Do We Need Inheritance?
+
+Suppose we have three types of robots:
+
+```text
+Fighter Robo
+Player Robo
+Teacher Robo
+```
+
+All three robots have some common activities:
+
+```text
+move()
+learn()
+recharge()
+interact()
+```
+
+Without inheritance, we would have to write the same methods in all three classes.
+
+That creates **duplicate code**.
+
+Instead, we create one common parent:
+
+```text
+                         Robo
+                          |
+             ┌────────────┼────────────┐
+             ↓            ↓            ↓
+       FighterRobo    PlayerRobo   TeacherRobo
+```
+
+Common methods are placed inside `Robo`.
+
+Specific methods are placed inside the child classes.
+
+```text
+Robo
+ ├── move()
+ ├── learn()
+ ├── recharge()
+ └── interact()
+
+FighterRobo
+ └── fight()
+
+PlayerRobo
+ └── play()
+
+TeacherRobo
+ └── teach()
+```
+
+This is **code reusability through inheritance**.
+
+---
+
+# 3. Robot Example — Complete Inheritance Program
+
+This is the basic program structure we will use throughout the explanation.
+
+```java
+class Robo
+{
+    public void move()
+    {
+        System.out.println("Robo moves fast");
+    }
+
+    public void learn()
+    {
+        System.out.println("Robo self learns");
+    }
+
+    public void recharge()
+    {
+        System.out.println("Plug in to recharge");
+    }
+
+    public void interact()
+    {
+        System.out.println("Robo interacts");
+    }
+}
+
+class FighterRobo extends Robo
+{
+    public void fight()
+    {
+        System.out.println("Robo fights");
+    }
+}
+
+class PlayerRobo extends Robo
+{
+    public void play()
+    {
+        System.out.println("Robo plays games");
+    }
+}
+
+class TeacherRobo extends Robo
+{
+    public void teach()
+    {
+        System.out.println("Robo teaches");
+    }
+}
+
+class RoboApp
+{
+    public static void main(String[] args)
+    {
+        FighterRobo fr = new FighterRobo();
+
+        System.out.println("Fighter Robo");
+
+        fr.move();
+        fr.learn();
+        fr.recharge();
+        fr.interact();
+        fr.fight();
+
+        System.out.println("----------------");
+
+        PlayerRobo pr = new PlayerRobo();
+
+        System.out.println("Player Robo");
+
+        pr.move();
+        pr.learn();
+        pr.recharge();
+        pr.interact();
+        pr.play();
+
+        System.out.println("----------------");
+
+        TeacherRobo tr = new TeacherRobo();
+
+        System.out.println("Teacher Robo");
+
+        tr.move();
+        tr.learn();
+        tr.recharge();
+        tr.interact();
+        tr.teach();
+    }
+}
+```
+
+---
+
+# 4. Understanding the Program Step-by-Step
+
+## Step 1: Parent Class
+
+```java
+class Robo
+```
+
+`Robo` is the parent class.
+
+It contains four common methods:
+
+```java
+move()
+learn()
+recharge()
+interact()
+```
+
+These methods represent common behavior of every robot.
+
+---
+
+## Step 2: FighterRobo
+
+```java
+class FighterRobo extends Robo
+```
+
+This means:
+
+> `FighterRobo` is a child class of `Robo`.
+
+Therefore, a `FighterRobo` object can access the accessible methods of `Robo`.
+
+It additionally has its own method:
+
+```java
+fight()
+```
+
+So its accessible methods are:
+
+```text
+move()
+learn()
+recharge()
+interact()
+fight()
+```
+
+---
+
+## Step 3: PlayerRobo
+
+```java
+class PlayerRobo extends Robo
+```
+
+It inherits:
+
+```text
+move()
+learn()
+recharge()
+interact()
+```
+
+and has its own:
+
+```text
+play()
+```
+
+Therefore:
+
+```text
+PlayerRobo
+ ├── move()
+ ├── learn()
+ ├── recharge()
+ ├── interact()
+ └── play()
+```
+
+---
+
+## Step 4: TeacherRobo
+
+```java
+class TeacherRobo extends Robo
+```
+
+It inherits:
+
+```text
+move()
+learn()
+recharge()
+interact()
+```
+
+and has its own:
+
+```text
+teach()
+```
+
+Therefore:
+
+```text
+TeacherRobo
+ ├── move()
+ ├── learn()
+ ├── recharge()
+ ├── interact()
+ └── teach()
+```
+
+---
+
+# 5. What Happens When We Create an Object?
+
+Consider:
+
+```java
+FighterRobo fr = new FighterRobo();
+```
+
+Here:
+
+```text
+FighterRobo
+     ↓
+new FighterRobo()
+     ↓
+FighterRobo object
+```
+
+The object can access the methods available through its class hierarchy.
+
+Conceptually:
+
+```text
+             FighterRobo Object
+                    |
+       ┌────────────┼────────────┐
+       ↓            ↓            ↓
+     Robo       FighterRobo    inherited
+     methods       method       methods
+```
+
+So:
+
+```java
+fr.move();
+fr.learn();
+fr.recharge();
+fr.interact();
+fr.fight();
+```
+
+are valid.
+
+---
+
+# 6. Why Can the Child Access Parent Methods?
+
+Because:
+
+```java
+class FighterRobo extends Robo
+```
+
+creates an inheritance relationship.
+
+Therefore:
+
+```text
+FighterRobo IS-A Robo
+```
+
+This is called an **IS-A relationship**.
+
+Examples:
+
+```text
+FighterRobo IS-A Robo
+PlayerRobo IS-A Robo
+TeacherRobo IS-A Robo
+```
+
+Similarly:
+
+```text
+Dog IS-A Animal
+Car IS-A Vehicle
+Manager IS-A Employee
+```
+
+---
+
+# 7. Inheritance and Code Reusability
+
+### Without inheritance
+
+Suppose every robot has:
+
+```java
+public void move()
+{
+    System.out.println("Robo moves fast");
+}
+```
+
+We would need to write it three times.
+
+```text
+FighterRobo → move()
+PlayerRobo  → move()
+TeacherRobo → move()
+```
+
+### With inheritance
+
+Write it only once:
+
+```java
+class Robo
+{
+    public void move()
+    {
+        System.out.println("Robo moves fast");
+    }
+}
+```
+
+Then:
+
+```java
+class FighterRobo extends Robo
+{
+}
+```
+
+```java
+class PlayerRobo extends Robo
+{
+}
+```
+
+```java
+class TeacherRobo extends Robo
+{
+}
+```
+
+All three can reuse `move()`.
+
+### Therefore:
+
+> **Inheritance reduces code duplication and promotes code reusability.**
+
+---
+
+# 8. Types of Inheritance in Java
+
+There are several inheritance structures that are important for Java.
+
+1. Single Inheritance
+2. Hierarchical Inheritance
+3. Multilevel Inheritance
+4. Hybrid Inheritance
+5. Multiple Inheritance — not supported through classes
+
+Let's understand each carefully.
+
+---
+
+# 9. Single Inheritance
+
+### Definition
+
+> When one child class inherits from one parent class, it is called **Single Inheritance**.
+
+### Diagram
+
+```text
+Parent
+   ↓
+Child
+```
+
+### Example
+
+```java
+class Animal
+{
+    public void eat()
+    {
+        System.out.println("Animal eats");
+    }
+}
+
+class Dog extends Animal
+{
+    public void bark()
+    {
+        System.out.println("Dog barks");
+    }
+}
+
+class AnimalApp
+{
+    public static void main(String[] args)
+    {
+        Dog d = new Dog();
+
+        d.eat();
+        d.bark();
+    }
+}
+```
+
+### Output
+
+```text
+Animal eats
+Dog barks
+```
+
+`Dog` gets `eat()` from `Animal` and has its own `bark()`.
+
+---
+
+# 10. Hierarchical Inheritance
+
+### Definition
+
+> When **one parent class is extended by multiple child classes**, it is called Hierarchical Inheritance.
+
+### Diagram
+
+```text
+                 Parent
+                /      \
+               /        \
+          Child-1      Child-2
+```
+
+If there are three children:
+
+```text
+                    Robo
+                 /    |    \
+                ↓     ↓     ↓
+          Fighter   Player  Teacher
+```
+
+Our Robot example is therefore **Hierarchical Inheritance**.
+
+### Program
+
+```java
+class Robo
+{
+    public void move()
+    {
+        System.out.println("Robo moves fast");
+    }
+
+    public void learn()
+    {
+        System.out.println("Robo self learns");
+    }
+
+    public void recharge()
+    {
+        System.out.println("Plug in to recharge");
+    }
+
+    public void interact()
+    {
+        System.out.println("Robo interacts");
+    }
+}
+
+class FighterRobo extends Robo
+{
+    public void fight()
+    {
+        System.out.println("Robo fights");
+    }
+}
+
+class PlayerRobo extends Robo
+{
+    public void play()
+    {
+        System.out.println("Robo plays games");
+    }
+}
+
+class TeacherRobo extends Robo
+{
+    public void teach()
+    {
+        System.out.println("Robo teaches");
+    }
+}
+```
+
+---
+
+# 11. Important Point in Hierarchical Inheritance
+
+`FighterRobo` does **not** inherit `play()`.
+
+Why?
+
+Because:
+
+```text
+play()
+```
+
+belongs to `PlayerRobo`.
+
+Similarly:
+
+```text
+fight()
+```
+
+belongs only to `FighterRobo`.
+
+And:
+
+```text
+teach()
+```
+
+belongs only to `TeacherRobo`.
+
+The common methods belong to `Robo`.
+
+```text
+                    Robo
+             move()
+             learn()
+             recharge()
+             interact()
+                  |
+       ┌──────────┼──────────┐
+       ↓          ↓          ↓
+   Fighter      Player     Teacher
+    fight()      play()     teach()
+```
+
+---
+
+# 12. Multilevel Inheritance
+
+### Definition
+
+> When inheritance occurs at multiple levels, it is called Multilevel Inheritance.
+
+For the three-class structure you specified:
+
+```text
+Grand Parent
+     ↓
+   Parent
+     ↓
+   Child
+```
+
+### Example
+
+```java
+class Animal
+{
+    public void eat()
+    {
+        System.out.println("Animal eats");
+    }
+}
+
+class Dog extends Animal
+{
+    public void bark()
+    {
+        System.out.println("Dog barks");
+    }
+}
+
+class Puppy extends Dog
+{
+    public void play()
+    {
+        System.out.println("Puppy plays");
+    }
+}
+```
+
+### Object
+
+```java
+Puppy p = new Puppy();
+```
+
+The `Puppy` object can access:
+
+```text
+eat()  → Animal
+bark() → Dog
+play() → Puppy
+```
+
+Conceptually:
+
+```text
+Animal
+  |
+  | eat()
+  ↓
+Dog
+  |
+  | bark()
+  ↓
+Puppy
+  |
+  | play()
+```
+
+---
+
+# 13. How Multilevel Inheritance Works
+
+Consider:
+
+```java
+Puppy p = new Puppy();
+```
+
+Then:
+
+```java
+p.eat();
+```
+
+`eat()` is not declared directly inside `Puppy`.
+
+It is declared in `Animal`.
+
+But because:
+
+```text
+Puppy → Dog → Animal
+```
+
+the method can be accessed through the inheritance hierarchy.
+
+Similarly:
+
+```java
+p.bark();
+```
+
+comes from `Dog`.
+
+And:
+
+```java
+p.play();
+```
+
+comes from `Puppy`.
+
+---
+
+# 14. Hybrid Inheritance
+
+### Definition
+
+> Hybrid inheritance is a combination of more than one inheritance structure.
+
+Your requested example is:
+
+```text
+                         Animal
+                    /       |       \
+                   ↓        ↓        ↓
+             Herbivores Carnivores Omnivores
+                  ↓         ↓          ↓
+                 Cow       Tiger       Dog
+```
+
+Here:
+
+```text
+Animal → Herbivores → Cow
+```
+
+is a multilevel path.
+
+Similarly:
+
+```text
+Animal → Carnivores → Tiger
+```
+
+and:
+
+```text
+Animal → Omnivores → Dog
+```
+
+The three branches from `Animal` demonstrate a hierarchical structure, while each branch has another level.
+
+So the overall structure combines **hierarchical and multilevel inheritance**.
+
+---
+
+# 15. Hybrid Inheritance Program
+
+```java
+class Animal
+{
+    public void eat()
+    {
+        System.out.println("Animal eats");
+    }
+}
+
+class Herbivores extends Animal
+{
+    public void grass()
+    {
+        System.out.println("Herbivores eat grass");
+    }
+}
+
+class Carnivores extends Animal
+{
+    public void meat()
+    {
+        System.out.println("Carnivores eat meat");
+    }
+}
+
+class Omnivores extends Animal
+{
+    public void both()
+    {
+        System.out.println("Omnivores eat plants and meat");
+    }
+}
+
+class Cow extends Herbivores
+{
+    public void giveMilk()
+    {
+        System.out.println("Cow gives milk");
+    }
+}
+
+class Tiger extends Carnivores
+{
+    public void hunt()
+    {
+        System.out.println("Tiger hunts");
+    }
+}
+
+class Dog extends Omnivores
+{
+    public void bark()
+    {
+        System.out.println("Dog barks");
+    }
+}
+```
+
+### Structure
+
+```text
+                         Animal
+                    /       |       \
+                   ↓        ↓        ↓
+             Herbivores Carnivores Omnivores
+                  ↓         ↓          ↓
+                 Cow       Tiger       Dog
+```
+
+For example:
+
+```java
+Cow c = new Cow();
+
+c.eat();
+c.grass();
+c.giveMilk();
+```
+
+The `Cow` object can access:
+
+```text
+eat()      → Animal
+grass()    → Herbivores
+giveMilk() → Cow
+```
+
+---
+
+# 16. Multiple Inheritance
+
+### Meaning
+
+Multiple inheritance means:
+
+> One child class directly inherits from more than one parent class.
+
+For example:
+
+```text
+       A       B
+        \     /
+          \ /
+           C
+```
+
+If Java allowed this with classes, we could write conceptually:
+
+```text
+class C extends A, B
+```
+
+But **Java does not support multiple inheritance through classes**.
+
+---
+
+# 17. Why Doesn't Java Support Multiple Inheritance Through Classes?
+
+The major reason is the **Diamond Problem**.
+
+Consider:
+
+```text
+             A
+            / \
+           B   C
+            \ /
+             D
+```
+
+Suppose `A` has:
+
+```java
+public void show()
+{
+    System.out.println("A");
+}
+```
+
+Suppose both `B` and `C` provide their own `show()`.
+
+Then `D` receives two possible versions.
+
+If we write:
+
+```java
+D d = new D();
+
+d.show();
+```
+
+Which method should execute?
+
+```text
+B's show()
+       OR
+C's show()
+```
+
+This creates ambiguity.
+
+Therefore Java avoids this problem by **not allowing multiple inheritance through classes**.
+
+---
+
+# 18. Diamond Problem Program — Conceptual Example
+
+The problematic structure would be:
+
+```text
+             Robo
+            /    \
+           A      B
+            \    /
+             C
+```
+
+Suppose:
+
+```java
+class Robo
+{
+    public void show()
+    {
+        System.out.println("Robo");
+    }
+}
+```
+
+Then two separate classes could provide their own versions:
+
+```java
+class A extends Robo
+{
+    public void show()
+    {
+        System.out.println("A");
+    }
+}
+```
+
+```java
+class B extends Robo
+{
+    public void show()
+    {
+        System.out.println("B");
+    }
+}
+```
+
+If a class `C` could inherit from both `A` and `B`, then:
+
+```java
+C c = new C();
+
+c.show();
+```
+
+would have an ambiguity.
+
+Java therefore does **not** permit that class hierarchy.
+
+---
+
+# 19. Interfaces and Multiple Inheritance
+
+Java can support **multiple inheritance of type** through interfaces.
+
+Example:
+
+```java
+interface A
+{
+    void showA();
+}
+
+interface B
+{
+    void showB();
+}
+
+class C implements A, B
+{
+    public void showA()
+    {
+        System.out.println("A method");
+    }
+
+    public void showB()
+    {
+        System.out.println("B method");
+    }
+}
+```
+
+Here:
+
+```text
+       A       B
+        \     /
+         \   /
+           C
+```
+
+A class can implement multiple interfaces.
+
+This is different from inheriting from multiple classes.
+
+---
+
+# 20. Cyclic Inheritance
+
+### Definition
+
+> Cyclic inheritance occurs when classes form a circular inheritance relationship.
+
+Example:
+
+```text
+A → B
+↑   ↓
+└───┘
+```
+
+Or:
+
+```text
+A
+↓
+B
+↓
+C
+↓
+A
+```
+
+This is not allowed.
+
+### Why?
+
+There would be no clear top-level parent.
+
+For example, if:
+
+```text
+A inherits B
+B inherits C
+C inherits A
+```
+
+then every class depends on another class in the same cycle.
+
+Java therefore rejects cyclic inheritance.
+
+---
+
+# 21. Three Types of Methods During Inheritance
+
+This is a very important examination concept.
+
+During inheritance, we can classify methods into:
+
+1. **Inherited methods**
+2. **Overridden methods**
+3. **Specialized methods**
+
+Let's understand all three using one program.
+
+---
+
+# 22. Inherited Method
+
+An **inherited method** is a method declared in the parent class that the child uses without providing a new implementation.
+
+```java
+class Robo
+{
+    public void move()
+    {
+        System.out.println("Robo moves");
+    }
+}
+
+class FighterRobo extends Robo
+{
+}
+```
+
+Now:
+
+```java
+FighterRobo fr = new FighterRobo();
+
+fr.move();
+```
+
+Output:
+
+```text
+Robo moves
+```
+
+`move()` is an **inherited method**.
+
+---
+
+# 23. Overridden Method
+
+### Definition
+
+> When a child class provides its own implementation of an inherited method with the same method signature, it is called Method Overriding.
+
+Example:
+
+```java
+class Robo
+{
+    public void fight()
+    {
+        System.out.println("Robo fights");
+    }
+}
+
+class FighterRobo extends Robo
+{
+    public void fight()
+    {
+        System.out.println("Fighter Robo fights strongly");
+    }
+}
+```
+
+Now:
+
+```java
+FighterRobo fr = new FighterRobo();
+
+fr.fight();
+```
+
+Output:
+
+```text
+Fighter Robo fights strongly
+```
+
+The child version executes.
+
+---
+
+# 24. Specialized Method
+
+A **specialized method** is a new method introduced by the child class for behavior specific to that child.
+
+```java
+class Robo
+{
+    public void move()
+    {
+        System.out.println("Robo moves");
+    }
+}
+
+class FighterRobo extends Robo
+{
+    public void specialAttack()
+    {
+        System.out.println("Fighter Robo performs special attack");
+    }
+}
+```
+
+Here:
+
+```text
+move()
+```
+
+is inherited.
+
+```text
+specialAttack()
+```
+
+is specialized.
+
+---
+
+# 25. One Program Showing All Three
+
+```java
+class Robo
+{
+    public void move()
+    {
+        System.out.println("Robo moves");
+    }
+
+    public void fight()
+    {
+        System.out.println("Robo fights");
+    }
+
+    public void recharge()
+    {
+        System.out.println("Robo recharges");
+    }
+}
+
+class FighterRobo extends Robo
+{
+    // Overridden method
+
+    public void fight()
+    {
+        System.out.println("Fighter Robo fights strongly");
+    }
+
+    // Specialized method
+
+    public void specialAttack()
+    {
+        System.out.println("Fighter Robo performs special attack");
+    }
+}
+
+class RoboApp
+{
+    public static void main(String[] args)
+    {
+        FighterRobo fr = new FighterRobo();
+
+        fr.move();
+        fr.recharge();
+        fr.fight();
+        fr.specialAttack();
+    }
+}
+```
+
+### Classification
+
+```text
+move()
+    ↓
+Inherited
+
+
+recharge()
+    ↓
+Inherited
+
+
+fight()
+    ↓
+Overridden
+
+
+specialAttack()
+    ↓
+Specialized
+```
+
+---
+
+# 26. Parent Members and Child Members
+
+Suppose:
+
+```java
+class Robo
+{
+    public void move()
+    {
+    }
+
+    public void learn()
+    {
+    }
+}
+```
+
+and:
+
+```java
+class FighterRobo extends Robo
+{
+    public void fight()
+    {
+    }
+}
+```
+
+Then:
+
+```text
+Robo
+ ├── move()
+ └── learn()
+
+FighterRobo
+ └── fight()
+```
+
+A `FighterRobo` object can use all three accessible methods:
+
+```java
+FighterRobo fr = new FighterRobo();
+
+fr.move();
+fr.learn();
+fr.fight();
+```
+
+---
+
+# 27. What Is Actually Reused?
+
+Inheritance can provide access to inherited:
+
+* Methods
+* Fields
+* Other accessible members
+
+But inheritance does **not** mean that every member is directly accessible from the child.
+
+Access modifiers matter.
+
+---
+
+# 28. Private Members and Inheritance
+
+Consider:
+
+```java
+class Robo
+{
+    private int battery = 100;
+
+    public void showBattery()
+    {
+        System.out.println(battery);
+    }
+}
+
+class FighterRobo extends Robo
+{
+}
+```
+
+The `battery` variable is private to `Robo`.
+
+Therefore this is not directly accessible inside `FighterRobo`:
+
+```java
+battery
+```
+
+But the child can call:
+
+```java
+showBattery();
+```
+
+because `showBattery()` is public.
+
+### Important:
+
+> **Private members are not directly accessible in the child class.**
+
+---
+
+# 29. Protected Members
+
+`protected` is specifically important in inheritance.
+
+```java
+class Robo
+{
+    protected int battery = 100;
+}
+
+class FighterRobo extends Robo
+{
+    public void showBattery()
+    {
+        System.out.println(battery);
+    }
+}
+```
+
+The child can access the protected member.
+
+---
+
+# 30. Public Members
+
+Public members can be accessed wherever Java's normal access rules permit.
+
+Example:
+
+```java
+class Robo
+{
+    public void move()
+    {
+        System.out.println("Robo moves");
+    }
+}
+
+class FighterRobo extends Robo
+{
+}
+```
+
+Then:
+
+```java
+FighterRobo fr = new FighterRobo();
+
+fr.move();
+```
+
+works.
+
+---
+
+# 31. Default Members
+
+If no access modifier is written:
+
+```java
+class Robo
+{
+    void move()
+    {
+        System.out.println("Robo moves");
+    }
+}
+```
+
+the method has **default/package-private access**.
+
+It is accessible within the same package, subject to Java's package access rules.
+
+---
+
+# 32. Access Modifier Summary
+
+| Modifier    | Directly accessible in child?            |
+| ----------- | ---------------------------------------- |
+| `private`   | ❌ No                                     |
+| default     | ✅ If in same package                     |
+| `protected` | ✅ Yes, subject to protected-access rules |
+| `public`    | ✅ Yes                                    |
+
+---
+
+# 33. Inheritance and Constructors
+
+A very important point:
+
+> **Constructors are not inherited.**
+
+Suppose:
+
+```java
+class Robo
+{
+    Robo()
+    {
+        System.out.println("Robo constructor");
+    }
+}
+
+class FighterRobo extends Robo
+{
+    FighterRobo()
+    {
+        System.out.println("Fighter Robo constructor");
+    }
+}
+```
+
+When:
+
+```java
+FighterRobo fr = new FighterRobo();
+```
+
+the parent constructor executes first, followed by the child constructor.
+
+Output:
+
+```text
+Robo constructor
+Fighter Robo constructor
+```
+
+### Important distinction
+
+```text
+Parent constructor → executed
+Parent constructor → NOT inherited
+```
+
+---
+
+# 34. Why Does the Parent Constructor Execute First?
+
+Because the child object contains the parent part of the object hierarchy.
+
+Conceptually:
+
+```text
+FighterRobo object
+       |
+       ├── Robo part
+       |
+       └── FighterRobo part
+```
+
+The parent portion is initialized first.
+
+If the parent has a no-argument constructor, Java can invoke it implicitly when appropriate.
+
+The `super()` call is used to invoke a parent constructor explicitly.
+
+---
+
+# 35. `super` in Inheritance
+
+`super` refers to the immediate parent-class portion/reference context.
+
+It can be used to:
+
+1. Access a parent variable
+2. Call a parent method
+3. Call a parent constructor
+
+### Parent method example
+
+```java
+class Robo
+{
+    public void move()
+    {
+        System.out.println("Robo moves");
+    }
+}
+
+class FighterRobo extends Robo
+{
+    public void move()
+    {
+        super.move();
+
+        System.out.println("Fighter Robo moves");
+    }
+}
+```
+
+Output:
+
+```text
+Robo moves
+Fighter Robo moves
+```
+
+---
+
+# 36. Method Overriding in Inheritance
+
+Consider:
+
+```java
+class Robo
+{
+    public void interact()
+    {
+        System.out.println("Robo interacts");
+    }
+}
+
+class FighterRobo extends Robo
+{
+    public void interact()
+    {
+        System.out.println("Fighter Robo interacts differently");
+    }
+}
+```
+
+Now:
+
+```java
+FighterRobo fr = new FighterRobo();
+
+fr.interact();
+```
+
+Output:
+
+```text
+Fighter Robo interacts differently
+```
+
+The child implementation takes precedence for the child object.
+
+This concept becomes very important in **runtime polymorphism**.
+
+---
+
+# 37. Inheritance and Runtime Polymorphism
+
+Inheritance provides the foundation for runtime polymorphism.
+
+Example:
+
+```java
+class Robo
+{
+    public void move()
+    {
+        System.out.println("Robo moves");
+    }
+}
+
+class FighterRobo extends Robo
+{
+    public void move()
+    {
+        System.out.println("Fighter Robo moves");
+    }
+}
+```
+
+Now:
+
+```java
+Robo r = new FighterRobo();
+
+r.move();
+```
+
+Output:
+
+```text
+Fighter Robo moves
+```
+
+The reference type is:
+
+```text
+Robo
+```
+
+but the actual object is:
+
+```text
+FighterRobo
+```
+
+Therefore the overridden method is selected at runtime.
+
+---
+
+# 38. Upcasting
+
+When a child object is assigned to a parent reference:
+
+```java
+Robo r = new FighterRobo();
+```
+
+this is called **upcasting**.
+
+```text
+FighterRobo
+     ↓
+    Robo
+```
+
+It is generally safe because:
+
+> Every `FighterRobo` IS-A `Robo`.
+
+But through the `Robo` reference, only members available through the `Robo` type can be directly called.
+
+For example:
+
+```java
+r.move();
+```
+
+is valid if `move()` belongs to `Robo`.
+
+But:
+
+```java
+r.fight();
+```
+
+is not directly accessible through a `Robo` reference if `fight()` is declared only in `FighterRobo`.
+
+---
+
+# 39. Downcasting
+
+Converting a parent reference back to a child reference is called **downcasting**.
+
+```java
+Robo r = new FighterRobo();
+
+FighterRobo fr = (FighterRobo) r;
+```
+
+Now:
+
+```java
+fr.fight();
+```
+
+can be called.
+
+But downcasting must be done carefully. An invalid cast can produce `ClassCastException`.
+
+---
+
+# 40. `final` and Inheritance
+
+A `final` class cannot be extended.
+
+Example:
+
+```java
+final class Robo
+{
+}
+```
+
+This is not allowed:
+
+```java
+class FighterRobo extends Robo
+{
+}
+```
+
+because `Robo` is final.
+
+---
+
+# 41. Final Method and Inheritance
+
+A final method can be inherited, but it **cannot be overridden**.
+
+```java
+class Robo
+{
+    public final void move()
+    {
+        System.out.println("Robo moves");
+    }
+}
+```
+
+This is not allowed:
+
+```java
+class FighterRobo extends Robo
+{
+    public void move()
+    {
+        System.out.println("Fighter Robo moves");
+    }
+}
+```
+
+because `move()` is final.
+
+---
+
+# 42. Static Methods and Inheritance
+
+Static methods belong to the class rather than individual objects.
+
+They can be accessible through an inherited class hierarchy, but they are **hidden**, not overridden, when a child declares a static method with the same signature.
+
+Example:
+
+```java
+class Robo
+{
+    public static void show()
+    {
+        System.out.println("Robo show");
+    }
+}
+
+class FighterRobo extends Robo
+{
+    public static void show()
+    {
+        System.out.println("Fighter Robo show");
+    }
+}
+```
+
+This is **method hiding**, not method overriding.
+
+---
+
+# 43. Object Class and Inheritance
+
+Every Java class ultimately derives from `java.lang.Object` unless it is already part of another class hierarchy.
+
+For example:
+
+```text
+Object
+  ↓
+Robo
+  ↓
+FighterRobo
+```
+
+Therefore a `FighterRobo` object ultimately has access to methods inherited from `Object`, such as:
+
+```text
+toString()
+equals()
+hashCode()
+getClass()
+```
+
+and other methods defined by `Object`.
+
+---
+
+# 44. IS-A vs HAS-A
+
+Do not confuse inheritance with composition.
+
+### IS-A
+
+Inheritance:
+
+```text
+FighterRobo IS-A Robo
+Dog IS-A Animal
+```
+
+### HAS-A
+
+Composition/association:
+
+```text
+Car HAS-A Engine
+House HAS-A Room
+```
+
+So:
+
+```text
+IS-A  → Inheritance
+HAS-A → Composition/Association
+```
+
+---
+
+# 45. Advantages of Inheritance
+
+### 1. Code Reusability
+
+Common code can be written once.
+
+```text
+Robo
+ ↓
+Multiple child robots
+```
+
+### 2. Less Code Duplication
+
+Common methods do not need to be rewritten.
+
+### 3. Method Overriding
+
+Child classes can provide specialized behavior.
+
+### 4. Runtime Polymorphism
+
+Inheritance allows parent references to refer to child objects.
+
+### 5. Maintainability
+
+Changes to common behavior can often be made in the parent class.
+
+### 6. Extensibility
+
+New child classes can be created from an existing parent.
+
+---
+
+# 46. Disadvantages / Things to Consider
+
+Inheritance is powerful, but excessive inheritance can make a program difficult to maintain.
+
+Problems can include:
+
+* Tight coupling between parent and child
+* Complex class hierarchies
+* Fragile base-class behavior
+* Difficult debugging in deep hierarchies
+* Inappropriate inheritance when the relationship is not truly IS-A
+
+Therefore:
+
+> Use inheritance when there is a genuine **IS-A relationship**.
+
+---
+
+# 47. Complete Robot Inheritance Program
+
+Here is the complete version following your exact Robot style:
+
+```java
+class Robo
+{
+    public void move()
+    {
+        System.out.println("Robo moves fast");
+    }
+
+    public void learn()
+    {
+        System.out.println("Robo self learns");
+    }
+
+    public void recharge()
+    {
+        System.out.println("Plug in to recharge");
+    }
+
+    public void interact()
+    {
+        System.out.println("Robo interacts");
+    }
+}
+
+class FighterRobo extends Robo
+{
+    public void fight()
+    {
+        System.out.println("Robo fights");
+    }
+}
+
+class PlayerRobo extends Robo
+{
+    public void play()
+    {
+        System.out.println("Robo plays games");
+    }
+}
+
+class TeacherRobo extends Robo
+{
+    public void teach()
+    {
+        System.out.println("Robo teaches");
+    }
+}
+
+class RoboApp
+{
+    public static void main(String[] args)
+    {
+        FighterRobo fr = new FighterRobo();
+
+        System.out.println("Fighter Robo");
+
+        fr.move();
+        fr.learn();
+        fr.recharge();
+        fr.interact();
+        fr.fight();
+
+        System.out.println("----------------");
+
+        PlayerRobo pr = new PlayerRobo();
+
+        System.out.println("Player Robo");
+
+        pr.move();
+        pr.learn();
+        pr.recharge();
+        pr.interact();
+        pr.play();
+
+        System.out.println("----------------");
+
+        TeacherRobo tr = new TeacherRobo();
+
+        System.out.println("Teacher Robo");
+
+        tr.move();
+        tr.learn();
+        tr.recharge();
+        tr.interact();
+        tr.teach();
+    }
+}
+```
+
+### Output
+
+```text
+Fighter Robo
+Robo moves fast
+Robo self learns
+Plug in to recharge
+Robo interacts
+Robo fights
+----------------
+Player Robo
+Robo moves fast
+Robo self learns
+Plug in to recharge
+Robo interacts
+Robo plays games
+----------------
+Teacher Robo
+Robo moves fast
+Robo self learns
+Plug in to recharge
+Robo interacts
+Robo teaches
+```
+
+---
+
+# 48. Complete Inheritance Map
+
+```text
+                              Object
+                                 |
+                                Robo
+                   ┌─────────────┼─────────────┐
+                   ↓             ↓             ↓
+             FighterRobo    PlayerRobo    TeacherRobo
+                   |             |             |
+                fight()       play()        teach()
+```
+
+`Robo` provides:
+
+```text
+move()
+learn()
+recharge()
+interact()
+```
+
+Each child adds its own specialized behavior.
+
+```text
+FighterRobo → fight()
+PlayerRobo  → play()
+TeacherRobo → teach()
+```
+
+---
+
+# 49. Inheritance — Complete Concept Map
+
+```text
+                         INHERITANCE
+                              |
+             ┌────────────────┼────────────────┐
+             ↓                ↓                ↓
+        Reusability       IS-A Relation    Specialization
+                              |
+                              ↓
+                          extends
+                              |
+        ┌─────────────┬───────┴────────┬──────────────┐
+        ↓             ↓                ↓              ↓
+      Single     Hierarchical      Multilevel       Hybrid
+        |             |                |              |
+      A → B       A → B,C,D       A → B → C       Combination
+```
+
+### Methods during inheritance
+
+```text
+                    Methods
+                       |
+          ┌────────────┼────────────┐
+          ↓            ↓            ↓
+      Inherited     Overridden   Specialized
+       Parent       Child changes   Child adds
+       method       implementation  new method
+```
+
+### Major restrictions
+
+```text
+Multiple inheritance through classes → ❌
+Cyclic inheritance                 → ❌
+Final class inheritance             → ❌
+Final method overriding             → ❌
+```
+
+---
+
+# 🔥 DEEP UNDERSTANDING — ONE LOOK
+
+If you remember only one example, remember:
+
+```text
+                         Robo
+                          |
+          ┌───────────────┼───────────────┐
+          ↓               ↓               ↓
+    FighterRobo       PlayerRobo      TeacherRobo
+          |               |               |
+       fight()          play()          teach()
+```
+
+`Robo` contains **common behavior**:
+
+```text
+move()
+learn()
+recharge()
+interact()
+```
+
+The child classes **reuse** those methods and add their own behavior.
+
+Therefore:
+
+> **Inheritance = Parent's accessible functionality + Child's specialized functionality.**
+
+And the most important relationship is:
+
+```text
+FighterRobo IS-A Robo
+PlayerRobo  IS-A Robo
+TeacherRobo IS-A Robo
+```
+
+That is the core idea behind **Inheritance in Java**.

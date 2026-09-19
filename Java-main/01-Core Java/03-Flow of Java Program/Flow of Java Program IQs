@@ -1,0 +1,733 @@
+# Flow of Java Program — DOUBT KILLER 🔥
+
+The biggest confusion in Java is usually around **`.java`, `.class`, compiler, JVM, JDK, JRE, bytecode, interpreter, and JIT**. Let's connect everything.
+
+---
+
+## 1. First, memorize the basic flow
+
+```text
+.java
+  ↓
+javac
+  ↓
+.class
+  ↓
+JVM
+  ↓
+Execution
+  ↓
+Output
+```
+
+Example:
+
+```text
+Hello.java
+    ↓
+javac Hello.java
+    ↓
+Hello.class
+    ↓
+java Hello
+    ↓
+JVM
+    ↓
+Hello Java
+```
+
+Now let's kill the doubts one by one.
+
+---
+
+# 2. Is `.java` source code?
+
+✅ **Yes.**
+
+Example:
+
+```java
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello");
+    }
+}
+```
+
+Stored as:
+
+```text
+Hello.java
+```
+
+This is **human-readable Java source code**.
+
+---
+
+# 3. What does `javac` do?
+
+`javac` is the **Java compiler**.
+
+It converts:
+
+```text
+.java
+ ↓
+.class
+```
+
+More precisely:
+
+> It compiles Java source code into **JVM bytecode**.
+
+Example:
+
+```text
+javac Hello.java
+```
+
+produces:
+
+```text
+Hello.class
+```
+
+---
+
+# 4. Is `.class` machine code?
+
+❌ **No.**
+
+`.class` contains **JVM bytecode**.
+
+Think:
+
+```text
+.java
+ ↓
+Java source code
+ ↓
+javac
+ ↓
+.class
+ ↓
+JVM bytecode
+```
+
+It is not ordinary CPU-specific machine code.
+
+---
+
+# 5. Then who converts bytecode into machine instructions?
+
+The **JVM** handles execution.
+
+Modern JVMs can use:
+
+* interpretation
+* JIT compilation
+* runtime optimization
+
+Conceptually:
+
+```text
+Bytecode
+   ↓
+JVM
+   ↓
+Interpreter / JIT
+   ↓
+Native machine instructions
+   ↓
+CPU
+```
+
+---
+
+# 6. Is Java compiled or interpreted?
+
+🔥 **Both concepts are involved.**
+
+Java source is **compiled**:
+
+```text
+.java → bytecode
+```
+
+Then the JVM executes that bytecode using runtime execution mechanisms, including interpretation and JIT compilation.
+
+So don't answer:
+
+❌ "Java is only interpreted."
+
+And don't answer:
+
+❌ "Java is compiled directly into machine code."
+
+Best answer:
+
+> **Java source code is compiled into bytecode, and the JVM executes that bytecode, using JIT compilation to optimize frequently executed code.**
+
+---
+
+# 7. What exactly is JVM?
+
+**JVM = Java Virtual Machine**
+
+It is the runtime environment that executes Java bytecode.
+
+It handles things such as:
+
+* class loading
+* bytecode verification
+* execution
+* memory management
+* garbage collection
+* threads
+* runtime optimization
+
+Think:
+
+```text
+Java Bytecode
+      ↓
+     JVM
+      ↓
+Operating System
+      ↓
+Hardware
+```
+
+---
+
+# 8. Is JVM platform-independent?
+
+❌ **This is a classic trap.**
+
+The **bytecode is designed to be portable**.
+
+The JVM implementation itself is platform-specific.
+
+```text
+          Same Bytecode
+               │
+       ┌───────┼────────┐
+       ↓       ↓        ↓
+   Windows JVM Linux JVM macOS JVM
+       ↓       ↓        ↓
+    Windows   Linux    macOS
+```
+
+Therefore:
+
+> **Java bytecode is portable; JVM implementations are platform-specific.**
+
+---
+
+# 9. Why does Java say "Write Once, Run Anywhere"?
+
+Because you can compile your Java program to bytecode and run that bytecode on compatible JVMs for different platforms.
+
+```text
+              Java Program
+                   ↓
+                Bytecode
+                   ↓
+        ┌──────────┼──────────┐
+        ↓          ↓          ↓
+   Windows JVM  Linux JVM  macOS JVM
+```
+
+That's the basic idea behind:
+
+> **WORA — Write Once, Run Anywhere**
+
+---
+
+# 10. What is the difference between `javac` and `java`?
+
+Very important!
+
+### `javac`
+
+Compiles.
+
+```text
+javac Hello.java
+       ↓
+Hello.class
+```
+
+### `java`
+
+Launches the application.
+
+```text
+java Hello
+       ↓
+JVM starts
+       ↓
+Hello executes
+```
+
+### Memory trick
+
+> **`javac` = compile**
+> **`java` = run**
+
+---
+
+# 11. Why do we use `java Hello` instead of `java Hello.class`?
+
+Because the Java launcher expects the **class name** in the normal invocation.
+
+```text
+java Hello
+```
+
+not:
+
+```text
+java Hello.class
+```
+
+The JVM/runtime locates the appropriate class using the class path/module path and related mechanisms.
+
+---
+
+# 12. What happens after `java Hello`?
+
+This is where the deeper flow starts:
+
+```text
+java Hello
+    ↓
+JVM starts
+    ↓
+Class Loader
+    ↓
+Load Hello
+    ↓
+Verification / Linking
+    ↓
+Initialization
+    ↓
+main()
+    ↓
+Bytecode execution
+    ↓
+Output
+```
+
+---
+
+# 13. What does Class Loader do?
+
+The JVM needs class definitions before it can execute them.
+
+The **Class Loader** loads them into the JVM.
+
+```text
+Hello.class
+    ↓
+Class Loader
+    ↓
+JVM
+```
+
+It can also load classes required by your program.
+
+For example:
+
+```java
+Student s = new Student();
+```
+
+The JVM may need to load the `Student` class definition.
+
+---
+
+# 14. Is loading the same as initialization?
+
+❌ **No.**
+
+This is an important advanced distinction.
+
+```text
+Loading
+   ↓
+Linking
+   ↓
+Initialization
+```
+
+A class can be loaded before it is initialized.
+
+---
+
+# 15. What happens during linking?
+
+Linking is commonly described as:
+
+```text
+Linking
+ ├── Verification
+ ├── Preparation
+ └── Resolution
+```
+
+### Verification
+
+Checks bytecode validity.
+
+### Preparation
+
+Sets up memory for class-level data and establishes appropriate default values.
+
+### Resolution
+
+Resolves symbolic references as needed.
+
+---
+
+# 16. What is class initialization?
+
+Suppose:
+
+```java
+class Test {
+    static int x = 100;
+
+    static {
+        System.out.println("Hello");
+    }
+}
+```
+
+When the class is initialized, its static initialization actions are performed.
+
+So:
+
+```text
+Load
+ ↓
+Link
+ ↓
+Initialize
+ ↓
+Use class
+```
+
+---
+
+# 17. Where does `main()` fit?
+
+For a traditional standalone Java application:
+
+```java
+public static void main(String[] args)
+```
+
+is the conventional entry point.
+
+So:
+
+```text
+JVM
+ ↓
+Load class
+ ↓
+Initialize as required
+ ↓
+main()
+ ↓
+Application code
+```
+
+But remember:
+
+> Not every Java class needs a `main()` method.
+
+A class can simply be a library class used by another application.
+
+---
+
+# 18. What is JIT?
+
+**JIT = Just-In-Time compiler.**
+
+Suppose:
+
+```java
+for (int i = 0; i < 1_000_000; i++) {
+    calculate(i);
+}
+```
+
+`calculate()` may become very frequently executed.
+
+The JVM can detect this **hot code** and compile/optimize it at runtime.
+
+```text
+Bytecode
+   ↓
+JVM observes execution
+   ↓
+Hot code
+   ↓
+JIT
+   ↓
+Optimized native code
+```
+
+So the JVM is not simply interpreting everything forever.
+
+---
+
+# 19. Does JIT compile the whole program before execution?
+
+❌ Not necessarily.
+
+Modern JVM execution is adaptive.
+
+Different code can be handled differently depending on runtime behavior.
+
+Conceptually:
+
+```text
+Cold code → may be interpreted
+
+Hot code → JIT optimized
+```
+
+The exact strategy depends on the JVM implementation and runtime conditions.
+
+---
+
+# 20. Where does Garbage Collection fit?
+
+Garbage collection happens **during program execution**.
+
+Suppose:
+
+```java
+Student s = new Student();
+```
+
+Later the object becomes unreachable.
+
+```text
+Object created
+     ↓
+Object used
+     ↓
+No longer reachable
+     ↓
+Eligible for GC
+     ↓
+Garbage Collector
+     ↓
+Memory may be reclaimed
+```
+
+GC is a JVM runtime activity; it is **not a compilation step**.
+
+---
+
+# 21. Does GC immediately delete an object?
+
+❌ No.
+
+An unreachable object becomes **eligible** for garbage collection.
+
+The JVM decides when and how memory should be reclaimed.
+
+So:
+
+> **Unreachable ≠ immediately destroyed**
+
+---
+
+# 22. Stack vs Heap — where do they fit?
+
+During execution, the JVM manages runtime memory.
+
+A simplified model:
+
+```text
+JVM
+├── Stack
+│    └── Method frames
+│
+└── Heap
+     └── Objects
+```
+
+Example:
+
+```java
+Student s = new Student();
+```
+
+Conceptually:
+
+```text
+Stack                  Heap
+─────                  ────
+s ──────────────────→ Student object
+```
+
+This is a useful learning model, although real JVM/JIT implementations can optimize storage in ways that don't always match this simplified picture exactly.
+
+---
+
+# 23. Is JDK part of program execution?
+
+The **JDK is primarily the development kit**.
+
+You use tools such as:
+
+```text
+javac
+java
+jar
+javadoc
+```
+
+The important distinction is:
+
+```text
+JDK → Development
+JVM → Runtime execution
+```
+
+Modern JDK distributions include the runtime components needed to run Java applications.
+
+---
+
+# 24. What about JRE?
+
+You may see the traditional diagram:
+
+```text
+JDK
+ ↓
+JRE
+ ↓
+JVM
+```
+
+Historically, this was used to explain:
+
+* JDK → development
+* JRE → runtime environment
+* JVM → bytecode execution
+
+But modern Java distributions generally don't require a separately installed standalone JRE.
+
+For learning the execution flow, focus on:
+
+> **JDK tools compile and launch; the JVM executes.**
+
+---
+
+# 25. The Complete Doubt-Killer Diagram 🔥
+
+```text
+                 WRITE
+                   │
+                   ▼
+              Hello.java
+                   │
+                   ▼
+              javac compiler
+                   │
+              COMPILE
+                   │
+                   ▼
+             Hello.class
+                   │
+              BYTECODE
+                   │
+                   ▼
+              java Hello
+                   │
+                   ▼
+                 JVM
+                   │
+                   ▼
+             Class Loader
+                   │
+                   ▼
+             Verification
+                   │
+                   ▼
+               Linking
+          ┌────────┼────────┐
+          │        │        │
+     Verify     Prepare  Resolve
+          └────────┼────────┘
+                   ▼
+             Initialization
+                   │
+                   ▼
+                 main()
+                   │
+                   ▼
+            Bytecode Execution
+                   │
+             ┌─────┴─────┐
+             ▼           ▼
+        Interpreter     JIT
+             │           │
+             └─────┬─────┘
+                   ▼
+           Native Execution
+                   │
+                   ▼
+                  CPU
+                   │
+                   ▼
+                OUTPUT
+
+        Meanwhile, JVM manages:
+        • Heap
+        • Stacks
+        • Garbage Collection
+        • Threads
+```
+
+---
+
+# 🚨 10 Most Common Exam Traps
+
+| Question                      | Correct answer                                    |
+| ----------------------------- | ------------------------------------------------- |
+| `.java` contains?             | **Source code**                                   |
+| `.class` contains?            | **JVM bytecode**                                  |
+| Who compiles Java source?     | **`javac`**                                       |
+| Who executes bytecode?        | **JVM**                                           |
+| `javac` or `java` to compile? | **`javac`**                                       |
+| `javac` or `java` to run?     | **`java`**                                        |
+| Is bytecode machine code?     | **No**                                            |
+| Is JVM platform-independent?  | **No, JVM implementations are platform-specific** |
+| Why is Java portable?         | **Bytecode + compatible JVMs**                    |
+| Does Java use JIT?            | **Modern JVMs do**                                |
+
+---
+
+# 🧠 Ultimate Memory Trick
+
+Remember this sentence:
+
+> **Write → Compile → Bytecode → Load → Link → Initialize → Execute → Optimize → Output**
+
+Or the exam-friendly short form:
+
+> **`.java → javac → .class → JVM → Output`**
+
+And the **deep technical form**:
+
+> **Source → Bytecode → Class Loading → Linking → Initialization → Runtime Execution → JIT Optimization → Native Instructions → CPU**
+
+If you understand those three versions, you have the **complete flow of a Java program from beginner to interview level**.

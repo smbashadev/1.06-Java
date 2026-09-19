@@ -1,0 +1,743 @@
+# 10. Comparable in Java — 3LEVEL
+
+> **Rule:** No Generics. All examples use normal/raw Java syntax.
+
+The idea of **3LEVEL** is to understand the same concept at three depths:
+
+```text
+LEVEL 1 → Basic understanding
+LEVEL 2 → Practical understanding
+LEVEL 3 → Interview / confusion-clearing understanding
+```
+
+---
+
+# LEVEL 1 — BASIC
+
+## 1. What is Comparable?
+
+`Comparable` is an interface in Java.
+
+It is used when a class wants to define the **natural ordering** of its objects.
+
+```java
+class Student implements Comparable
+{
+    // comparison logic
+}
+```
+
+The important method is:
+
+```java
+compareTo()
+```
+
+So:
+
+```text
+Comparable
+    ↓
+compareTo()
+    ↓
+Natural Ordering
+```
+
+---
+
+# 2. What is Natural Ordering?
+
+Natural ordering means:
+
+> **The default ordering of objects of a particular class.**
+
+For example:
+
+```text
+Numbers → 10, 20, 30
+Strings → Apple, Banana, Cat
+```
+
+For our own class, we decide the natural ordering.
+
+For example:
+
+```text
+Student → Roll Number
+```
+
+So:
+
+```text
+Student(10)
+Student(20)
+Student(30)
+```
+
+is the natural ordering if we define `compareTo()` using `rollNo`.
+
+---
+
+# 3. What is `compareTo()`?
+
+`compareTo()` compares the current object with another object.
+
+Without Generics:
+
+```java
+public int compareTo(Object obj)
+{
+    // comparison logic
+}
+```
+
+It returns an `int`.
+
+There are three important results:
+
+```text
+Negative → Current object comes BEFORE
+Zero     → Equal for ordering
+Positive → Current object comes AFTER
+```
+
+### Memory trick
+
+```text
+        compareTo()
+             |
+     -----------------
+     |       |       |
+ Negative   0    Positive
+     |       |       |
+   BEFORE  SAME    AFTER
+```
+
+---
+
+# LEVEL 2 — PRACTICAL
+
+## 4. Simple Student Program
+
+Suppose we want Students to be naturally ordered according to their roll number.
+
+```java
+class Student implements Comparable
+{
+    int rollNo;
+
+    Student(int rollNo)
+    {
+        this.rollNo = rollNo;
+    }
+
+    public int compareTo(Object obj)
+    {
+        Student s = (Student)obj;
+
+        return this.rollNo - s.rollNo;
+    }
+}
+```
+
+### Understand this line:
+
+```java
+return this.rollNo - s.rollNo;
+```
+
+Here:
+
+```text
+this.rollNo
+     ↓
+Current object's roll number
+
+s.rollNo
+     ↓
+Other object's roll number
+```
+
+Suppose:
+
+```text
+Current = 10
+Other   = 20
+```
+
+Then:
+
+```text
+10 - 20 = -10
+```
+
+Negative:
+
+```text
+10 comes BEFORE 20
+```
+
+---
+
+## 5. Complete Program
+
+```java
+import java.util.*;
+
+class Student implements Comparable
+{
+    int rollNo;
+
+    Student(int rollNo)
+    {
+        this.rollNo = rollNo;
+    }
+
+    public int compareTo(Object obj)
+    {
+        Student s = (Student)obj;
+
+        return this.rollNo - s.rollNo;
+    }
+
+    public String toString()
+    {
+        return "" + rollNo;
+    }
+}
+
+class Demo
+{
+    public static void main(String[] args)
+    {
+        ArrayList list = new ArrayList();
+
+        list.add(new Student(30));
+        list.add(new Student(10));
+        list.add(new Student(20));
+
+        System.out.println("Before Sorting:");
+        System.out.println(list);
+
+        Collections.sort(list);
+
+        System.out.println("After Sorting:");
+        System.out.println(list);
+    }
+}
+```
+
+Output:
+
+```text
+Before Sorting:
+[30, 10, 20]
+
+After Sorting:
+[10, 20, 30]
+```
+
+---
+
+# 6. What happened in this program?
+
+The flow is:
+
+```text
+Student
+   ↓
+implements Comparable
+   ↓
+compareTo()
+   ↓
+compares rollNo
+   ↓
+rollNo becomes natural ordering
+   ↓
+Collections.sort()
+   ↓
+Students arranged by rollNo
+```
+
+Important:
+
+> `Comparable` does not itself perform the sorting.
+
+It defines **how objects should be ordered**.
+
+`Collections.sort()` performs the sorting.
+
+---
+
+# 7. Three `compareTo()` Results
+
+Suppose:
+
+```text
+Current = 10
+Other   = 20
+```
+
+Then:
+
+```text
+10 - 20 = -10
+```
+
+Result:
+
+```text
+Negative → Current comes BEFORE
+```
+
+---
+
+Suppose:
+
+```text
+Current = 20
+Other   = 20
+```
+
+Then:
+
+```text
+20 - 20 = 0
+```
+
+Result:
+
+```text
+Zero → Equal for ordering
+```
+
+---
+
+Suppose:
+
+```text
+Current = 30
+Other   = 20
+```
+
+Then:
+
+```text
+30 - 20 = 10
+```
+
+Result:
+
+```text
+Positive → Current comes AFTER
+```
+
+---
+
+# LEVEL 3 — INTERVIEW + DOUBT CLEARING
+
+## 8. Why does `compareTo()` return `int`?
+
+Because Java needs to represent three ordering conditions:
+
+```text
+Current < Other
+Current = Other
+Current > Other
+```
+
+Therefore:
+
+```text
+Negative
+Zero
+Positive
+```
+
+An `int` can represent all three.
+
+---
+
+# 9. Do we have to return exactly -1, 0 and 1?
+
+**No.**
+
+The sign is what matters.
+
+For example:
+
+```text
+-10 → BEFORE
+-2  → BEFORE
+-1  → BEFORE
+
+0   → SAME
+
+1   → AFTER
+10  → AFTER
+100 → AFTER
+```
+
+So:
+
+> The exact non-zero value is not important; its sign is important.
+
+---
+
+# 10. Does Comparable perform sorting?
+
+**No.**
+
+This is one of the most important distinctions.
+
+```text
+Comparable
+    ↓
+Defines comparison rule
+
+compareTo()
+    ↓
+Defines relative ordering
+
+Collections.sort()
+    ↓
+Actually performs sorting
+```
+
+So:
+
+> **Comparable tells Java how to order objects; the sorting operation uses that rule.**
+
+---
+
+# 11. What does "Natural Ordering" really mean?
+
+Suppose we have:
+
+```java
+class Employee
+{
+    int id;
+    String name;
+    double salary;
+}
+```
+
+We could order employees by:
+
+```text
+ID
+Name
+Salary
+```
+
+If we decide:
+
+```text
+Employee → ID
+```
+
+and implement `compareTo()` using `id`, then:
+
+```text
+ID
+↓
+Natural Ordering
+```
+
+So:
+
+> Natural ordering is the default ordering that the class itself defines.
+
+---
+
+# 12. Can a class have different sorting requirements?
+
+Yes.
+
+Suppose Student has:
+
+```text
+rollNo
+name
+marks
+```
+
+We may want:
+
+```text
+Sort by rollNo
+Sort by name
+Sort by marks
+```
+
+`Comparable` is normally used for the **natural/default ordering**.
+
+For alternative/custom ordering, we use:
+
+```text
+Comparator
+```
+
+Therefore:
+
+```text
+Comparable
+    ↓
+Natural / Default ordering
+
+Comparator
+    ↓
+Custom / Alternative ordering
+```
+
+You will study `Comparator` separately.
+
+---
+
+# 13. Comparable vs `compareTo()`
+
+Don't confuse them.
+
+### Comparable
+
+An interface:
+
+```java
+Comparable
+```
+
+### `compareTo()`
+
+The comparison method:
+
+```java
+compareTo()
+```
+
+Relationship:
+
+```text
+Comparable
+     ↓
+contains/defines compareTo()
+     ↓
+comparison logic
+```
+
+---
+
+# 14. Comparable vs Natural Ordering
+
+These are also not exactly the same thing.
+
+| Comparable             | Natural Ordering          |
+| ---------------------- | ------------------------- |
+| Interface              | Concept/order             |
+| Provides `compareTo()` | Default ordering          |
+| Mechanism              | Result of comparison rule |
+| Implemented by a class | Defined by the class      |
+
+Easy memory:
+
+```text
+Comparable = MECHANISM
+
+Natural Ordering = DEFAULT ORDER
+```
+
+---
+
+# 15. `compareTo()` vs `equals()`
+
+Another common interview doubt.
+
+### `equals()`
+
+Asks:
+
+> Are these objects equal?
+
+### `compareTo()`
+
+Asks:
+
+> Which object comes first?
+
+```text
+equals()
+    ↓
+Equal / Not Equal
+
+compareTo()
+    ↓
+Before / Same ordering / After
+```
+
+Also remember:
+
+```java
+compareTo() == 0
+```
+
+means the objects are considered equal **for ordering purposes**.
+
+It does not universally guarantee:
+
+```java
+equals() == true
+```
+
+---
+
+# 16. Why do we cast `Object`?
+
+Because our training examples are deliberately avoiding Generics.
+
+We write:
+
+```java
+public int compareTo(Object obj)
+```
+
+So `obj` is an `Object`.
+
+We need:
+
+```java
+Student s = (Student)obj;
+```
+
+to access Student-specific members:
+
+```java
+s.rollNo
+```
+
+The flow is:
+
+```text
+Object
+  ↓
+type cast
+  ↓
+Student
+  ↓
+access rollNo
+```
+
+---
+
+# 17. Most Important Code to Remember
+
+```java
+class Student implements Comparable
+{
+    int rollNo;
+
+    public int compareTo(Object obj)
+    {
+        Student s = (Student)obj;
+
+        return this.rollNo - s.rollNo;
+    }
+}
+```
+
+Understand this as:
+
+```text
+Student implements Comparable
+        ↓
+Student can have natural ordering
+
+compareTo()
+        ↓
+compares two Students
+
+this.rollNo - s.rollNo
+        ↓
+defines ordering by rollNo
+```
+
+---
+
+# 18. Final 3LEVEL Map
+
+```text
+                 COMPARABLE
+                     |
+          -------------------------
+          |                       |
+       LEVEL 1                 LEVEL 2
+       BASIC                  PRACTICAL
+          |                       |
+    Comparable =             Implement
+      interface              compareTo()
+          |                       |
+          ↓                       ↓
+     compareTo()          Compare objects
+          |                       |
+          ↓                       ↓
+ Natural Ordering         Collections.sort()
+                                  |
+                                  ↓
+                               LEVEL 3
+                          INTERVIEW / DOUBTS
+                                  |
+                    ---------------------------
+                    |            |            |
+                 Negative       0         Positive
+                    |            |            |
+                  BEFORE       SAME         AFTER
+```
+
+## ⭐ 3LEVEL Final Revision
+
+### LEVEL 1 — What?
+
+> `Comparable` is an interface used to define the natural ordering of objects.
+
+### LEVEL 2 — How?
+
+> Implement `Comparable` and provide `compareTo()` containing the comparison logic.
+
+### LEVEL 3 — What does `compareTo()` return?
+
+```text
+Negative → Before
+Zero     → Equal for ordering
+Positive → After
+```
+
+### One final example
+
+```java
+return this.rollNo - s.rollNo;
+```
+
+means:
+
+```text
+Current rollNo < Other rollNo → negative → BEFORE
+
+Current rollNo = Other rollNo → zero → SAME
+
+Current rollNo > Other rollNo → positive → AFTER
+```
+
+**Core formula to remember:**
+
+```text
+Comparable
+    ↓
+compareTo()
+    ↓
+Natural Ordering
+    ↓
+Negative / Zero / Positive
+    ↓
+Before / Same / After
+```
+
+And, as per your training approach, **no Generics are required to understand any of these concepts.**

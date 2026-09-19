@@ -1,0 +1,182 @@
+# Flow of a Java Program — One Page
+
+The **flow of a Java program** explains what happens from the moment we write Java source code until the program produces output.
+
+## 1. Write Java Source Code
+
+We first create a Java source file with the `.java` extension.
+
+```java
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello, Java!");
+    }
+}
+```
+
+File:
+
+```text
+Hello.java
+```
+
+---
+
+## 2. Compilation
+
+The Java compiler **`javac`** compiles the source code.
+
+```text
+Hello.java
+     ↓
+   javac
+     ↓
+Hello.class
+```
+
+The compiler checks things such as:
+
+* Syntax
+* Data types
+* Method declarations
+* Class structure
+
+If errors are found, compilation stops and we must correct the code.
+
+---
+
+## 3. Bytecode Generation
+
+If compilation succeeds, the compiler generates a `.class` file containing **bytecode**.
+
+```text
+Java Source Code
+      ↓
+    Compiler
+      ↓
+    Bytecode
+```
+
+Bytecode is designed to be understood by the **JVM** rather than directly by a particular CPU.
+
+---
+
+## 4. Class Loading
+
+When we run:
+
+```text
+java Hello
+```
+
+the JVM starts and loads the required classes into memory using its **class-loading mechanism**.
+
+```text
+.class files
+     ↓
+Class Loader
+     ↓
+JVM Memory
+```
+
+---
+
+## 5. Bytecode Verification
+
+The JVM verifies the bytecode before execution.
+
+It performs checks to help ensure that the bytecode follows JVM rules and is structurally valid.
+
+```text
+Bytecode
+   ↓
+Verification
+   ↓
+Valid?
+```
+
+If verification fails, execution does not proceed normally.
+
+---
+
+## 6. Execution
+
+The JVM executes the bytecode.
+
+Modern JVMs can use both interpretation and **Just-In-Time (JIT) compilation**.
+
+```text
+Bytecode
+   ↓
+ JVM
+   ↓
+Interpreter / JIT
+   ↓
+Native machine instructions
+   ↓
+CPU
+```
+
+The JIT compiler can optimize frequently executed code during runtime.
+
+---
+
+## 7. Output
+
+Finally, the program produces the required result.
+
+For our example:
+
+```text
+Hello, Java!
+```
+
+---
+
+# Complete Flow
+
+```text
+┌──────────────────────┐
+│   Java Source Code   │
+│      Hello.java      │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│   Java Compiler      │
+│       javac          │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│      Bytecode        │
+│      Hello.class     │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│     Class Loader     │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│  Bytecode Verifier   │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│         JVM          │
+│  Interpreter + JIT   │
+└──────────┬───────────┘
+           ↓
+┌──────────────────────┐
+│        CPU/OS        │
+└──────────┬───────────┘
+           ↓
+        OUTPUT
+```
+
+### ⭐ Remember
+
+> **Write → Compile → Bytecode → Load → Verify → Execute → Output**
+
+Or simply:
+
+**`.java → javac → .class → JVM → Output`**
+
+This flow is the foundation for understanding how every Java program moves from **source code to execution**.

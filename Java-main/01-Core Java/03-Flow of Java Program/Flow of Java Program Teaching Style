@@ -1,0 +1,579 @@
+# Flow of a Java Program — Teach Me 🎓
+
+Let's learn the **flow of a Java program** from absolute zero. The goal is to understand **what happens to your code after you write it**.
+
+---
+
+# 1. The Big Picture
+
+Whenever you write a Java program, think of this journey:
+
+```text
+Write Code
+    ↓
+Compile
+    ↓
+Bytecode
+    ↓
+Load
+    ↓
+Verify
+    ↓
+Execute
+    ↓
+Output
+```
+
+The most important version to memorize is:
+
+> **`.java → javac → .class → JVM → Output`**
+
+Now let's understand what each step actually means.
+
+---
+
+# 2. Step 1 — Write Java Code ✍️
+
+You create a file ending in `.java`.
+
+Example:
+
+```java
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello Java");
+    }
+}
+```
+
+Save it as:
+
+```text
+Hello.java
+```
+
+This is called **source code**.
+
+At this stage, the computer hasn't executed your program yet.
+
+---
+
+# 3. Step 2 — Compile the Program
+
+We use the Java compiler:
+
+```text
+javac
+```
+
+Command:
+
+```text
+javac Hello.java
+```
+
+The compiler checks your code.
+
+For example, this is wrong:
+
+```java
+int age = "Hello";
+```
+
+because `age` is an `int`, while `"Hello"` is a `String`.
+
+If there are compilation errors:
+
+```text
+Source Code
+    ↓
+ Compiler
+    ↓
+ERROR ❌
+```
+
+The program doesn't produce usable bytecode until the errors are fixed.
+
+---
+
+# 4. Step 3 — Bytecode Is Created
+
+If compilation succeeds:
+
+```text
+Hello.java
+    ↓
+  javac
+    ↓
+Hello.class
+```
+
+The `.class` file contains **bytecode**.
+
+Think of bytecode as a middle language.
+
+```text
+Java language
+     ↓
+  Bytecode
+     ↓
+    JVM
+```
+
+This is one of the most important ideas in Java.
+
+---
+
+# 5. Why not directly create machine code?
+
+Because Java wanted programs to be portable.
+
+Imagine:
+
+```text
+Java Program
+     ↓
+Bytecode
+     ↓
+ ┌───┼────┐
+ ↓   ↓    ↓
+Win Linux Mac
+JVM JVM  JVM
+```
+
+The same bytecode can be executed by JVM implementations for different platforms.
+
+That's the basic idea behind:
+
+> **Write Once, Run Anywhere**
+
+---
+
+# 6. Step 4 — Run the Program
+
+Now we execute:
+
+```text
+java Hello
+```
+
+Notice something interesting:
+
+When compiling, we write:
+
+```text
+javac Hello.java
+```
+
+When running, we write:
+
+```text
+java Hello
+```
+
+We don't normally write:
+
+```text
+java Hello.class
+```
+
+The Java launcher starts the JVM and requests execution of the `Hello` class.
+
+---
+
+# 7. Step 5 — Class Loading
+
+The JVM needs the class before it can execute it.
+
+So the **Class Loader** loads the class.
+
+```text
+Hello.class
+     ↓
+Class Loader
+     ↓
+JVM
+```
+
+Classes can be loaded when they are needed.
+
+For example, if your application uses another class:
+
+```java
+Student s = new Student();
+```
+
+the JVM may need to load `Student` as well.
+
+---
+
+# 8. Step 6 — Verification
+
+The JVM checks the bytecode before execution.
+
+Think:
+
+> "Is this bytecode valid according to JVM rules?"
+
+```text
+Bytecode
+   ↓
+Verifier
+   ↓
+Valid?
+```
+
+This is an important part of the JVM's runtime safety architecture.
+
+---
+
+# 9. Step 7 — Class Initialization
+
+Before certain classes are actively used, the JVM performs class initialization.
+
+For example:
+
+```java
+class Test {
+    static int x = 100;
+
+    static {
+        System.out.println("Initialized");
+    }
+}
+```
+
+The JVM performs the necessary initialization when the class is initialized.
+
+Don't confuse:
+
+```text
+Loading ≠ Initialization
+```
+
+A class can be loaded before it is initialized.
+
+---
+
+# 10. Step 8 — `main()` Starts
+
+For a traditional standalone Java application, execution begins with:
+
+```java
+public static void main(String[] args)
+```
+
+Example:
+
+```java
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello Java");
+    }
+}
+```
+
+The JVM/runtime invokes `main()`.
+
+Then your application starts doing its actual work.
+
+---
+
+# 11. Step 9 — JVM Executes the Bytecode
+
+Now comes the interesting part.
+
+The JVM can execute bytecode using interpretation and can also use **JIT compilation**.
+
+### Interpretation
+
+Conceptually:
+
+```text
+Bytecode
+   ↓
+Interpreter
+   ↓
+Execute
+```
+
+### JIT compilation
+
+Frequently executed code can be compiled into optimized native machine code:
+
+```text
+Bytecode
+   ↓
+JVM observes execution
+   ↓
+Frequently executed code
+   ↓
+JIT compiler
+   ↓
+Native machine code
+```
+
+This happens during runtime.
+
+---
+
+# 12. What is JIT?
+
+**JIT = Just-In-Time compiler.**
+
+Suppose this method is called thousands or millions of times:
+
+```java
+calculate();
+calculate();
+calculate();
+calculate();
+```
+
+The JVM can recognize that this is **hot code**.
+
+It may optimize it.
+
+So:
+
+```text
+Rare code
+  ↓
+May remain interpreted
+
+Hot code
+  ↓
+JIT compilation
+  ↓
+Optimized native code
+```
+
+This is a major reason modern Java can perform very well.
+
+---
+
+# 13. Step 10 — Memory Management
+
+While your program runs, the JVM manages memory.
+
+The JVM has several runtime memory areas.
+
+The two you'll encounter first are:
+
+### Stack
+
+Used for method execution and stack frames.
+
+### Heap
+
+Generally where Java objects are allocated.
+
+Example:
+
+```java
+Student s = new Student();
+```
+
+A simplified picture:
+
+```text
+Stack                    Heap
+─────                    ────
+s ───────────────────→ Student object
+```
+
+---
+
+# 14. What happens when a method is called?
+
+Suppose:
+
+```java
+main()
+   ↓
+calculate()
+   ↓
+add()
+```
+
+The stack conceptually looks like:
+
+```text
+┌─────────────┐
+│ add()       │ ← current
+├─────────────┤
+│ calculate() │
+├─────────────┤
+│ main()      │
+└─────────────┘
+```
+
+When `add()` finishes, its stack frame disappears.
+
+Then `calculate()` continues.
+
+---
+
+# 15. Garbage Collection ♻️
+
+Java automatically manages ordinary object memory using **garbage collection**.
+
+Suppose:
+
+```java
+Student s = new Student();
+```
+
+Later:
+
+```java
+s = null;
+```
+
+If nothing else refers to the object:
+
+```text
+Student object
+      ↓
+No longer reachable
+      ↓
+Eligible for garbage collection
+      ↓
+Memory may eventually be reclaimed
+```
+
+Important:
+
+> **Garbage collection doesn't necessarily happen immediately.**
+
+The JVM decides when and how to perform collection.
+
+---
+
+# 16. Finally — Output
+
+Our original program:
+
+```java
+System.out.println("Hello Java");
+```
+
+produces:
+
+```text
+Hello Java
+```
+
+So the entire journey was:
+
+```text
+Hello.java
+    ↓
+javac
+    ↓
+Hello.class
+    ↓
+Bytecode
+    ↓
+Class Loader
+    ↓
+Verification / Linking
+    ↓
+Initialization
+    ↓
+JVM Execution
+    ↓
+Interpreter / JIT
+    ↓
+CPU
+    ↓
+Hello Java
+```
+
+---
+
+# 🧠 One Simple Story
+
+Imagine Java is a restaurant.
+
+### 👨‍🍳 You
+
+Write the recipe:
+
+```text
+Hello.java
+```
+
+### 📝 Compiler
+
+Converts the recipe into a standard instruction format:
+
+```text
+Bytecode
+```
+
+### 🚪 Class Loader
+
+Brings the required instructions into the JVM.
+
+### 🔍 Verifier
+
+Checks that the instructions are valid.
+
+### 🏭 JVM
+
+Runs the instructions.
+
+### ⚡ JIT
+
+Optimizes frequently repeated work.
+
+### ♻️ Garbage Collector
+
+Cleans up objects that are no longer reachable.
+
+### 🖥️ CPU
+
+Actually performs the machine-level operations.
+
+### 🍽️ Output
+
+You get:
+
+```text
+Hello Java
+```
+
+---
+
+# 🎯 Three Levels to Remember
+
+### 🟢 Beginner
+
+> **Write → Compile → Run**
+
+```text
+.java
+ ↓
+javac
+ ↓
+.class
+ ↓
+JVM
+ ↓
+Output
+```
+
+### 🟡 Intermediate
+
+> **Source → Bytecode → Class Loading → Verification → Execution**
+
+### 🔴 Advanced
+
+> **Source → Compilation → Bytecode → Loading → Linking → Initialization → Runtime execution → JIT optimization → Native execution**
+
+---
+
+## 🔥 The one sentence you should remember
+
+> **A Java program is written as source code, compiled by `javac` into JVM bytecode, loaded and prepared by the JVM, and then executed using JVM runtime mechanisms such as interpretation and JIT compilation to produce the final result.**
