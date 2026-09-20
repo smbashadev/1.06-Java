@@ -1,6 +1,7 @@
 <p align="center">
   # ☕ Java — Comprehensive Learning Repository
 </p>
+
 <p align="center">
   <img src="https://img.shields.io/badge/Java-17%2B-orange?logo=openjdk" alt="Java">
   <img src="https://img.shields.io/badge/Level-Beginner%20%E2%86%92%20Advanced-success" alt="Beginner to Advanced">
@@ -293,7 +294,7 @@ The Java Programs module is maintained separately from the conceptual modules so
 📂 **Module:** [07-Java Programs](./07-Java-Programs)
 
 🔗 **GitHub:**  
-https://github.com/shaikbasha-dev/Java/tree/main/07-Java-Programs
+https://github.com/smbashadev/Java/tree/main/07-Java-Programs
 
 ---
 
@@ -356,35 +357,50 @@ https://github.com/shaikbasha-dev/Java/tree/main/07-Java-Programs
 
 ## 🧭 Complete Learning Roadmap
 
-**01 — Core Java**
+```text
+                    ☕ JAVA LEARNING ROADMAP
+                              │
+                              ▼
+                       01 — Core Java
+                              │
+                              ▼
+                 02 — Object Oriented Programming
+                              │
+                              ▼
+                    03 — Exception Handling
+                              │
+                              ▼
+                      04 — Multithreading
+                              │
+                              ▼
+                 05 — Java Collections Framework
+                              │
+                              ▼
+                  06 — Java Database Connectivity
+                              │
+                              ▼
+                       07 — Java Programs
+                              │
+                              ▼
+                   🎯 Interview Preparation
 
-↓
+```
 
-**02 — Object Oriented Programming in Java**
+### Recommended Progression
 
-↓
-
-**03 — Exception Handling in Java**
-
-↓
-
-**04 — Multithreading in Java**
-
-↓
-
-**05 — Java Collections Framework**
-
-↓
-
-**06 — Java Database Connectivity**
-
-↓
-
-**07 — Java Programs**
-
----
-
----
+```text
+Learn Concepts
+      ↓
+Understand Internally
+      ↓
+Practice Programs
+      ↓
+Revise Concepts
+      ↓
+Solve Interview Questions
+      ↓
+Explain Concepts Clearly
+```
 
 ## 🗂️ Repository Directory Tree
 
@@ -392,232 +408,61 @@ https://github.com/shaikbasha-dev/Java/tree/main/07-Java-Programs
 Java/
 │
 ├── 01-Core Java/
+│
 ├── 02-Object Oriented Programming in Java/
+│
 ├── 03-Exception Handling in Java/
+│
 ├── 04-Multithreading in Java/
+│
 ├── 05-Java Collections Framework/
+│
 ├── 06-Java Database Connectivity/
+│
 ├── 07-Java-Programs/
+│
 └── README.md
 ```
 
----
-
----
-
 ## 🧠 Learning Methodology
 
-This repository follows a structured approach to learning Java.
-
-### 1. Learn
-
-Start with the **TEACHME** format.
-
-Understand:
-
-- What the concept is
-- Why it exists
-- How it works
-- Basic syntax
-- Simple examples
-- Real-world connections
-
----
-
-### 2. Build Understanding
-
-Use the **3LEVEL** format.
-
-Progress through:
-
-**Basic → Intermediate → Advanced**
-
----
-
-### 3. Go Deep
-
-Use the **DEEPDIVE** format for detailed conceptual understanding.
-
-Focus on:
-
-- Internal working
-- Important rules
-- Examples
-- Differences
-- Edge cases
-- Practical understanding
-
----
-
-### 4. Practice
-
-Use the **Java Programs** module.
-
-Write programs and solve problems instead of only reading explanations.
-
-Focus on:
-
-- Writing Java programs
-- Applying learned concepts
-- Building programming logic
-- Solving problems
-- Testing different inputs
-- Debugging errors
-
----
-
-### 5. Revise
-
-Use the **ONEPAGE** format.
-
-Quickly recall the most important concepts before:
-
-- Practice
-- Tests
-- Interviews
-- Technical discussions
-
----
-
-### 6. Eliminate Doubts
-
-Use **DOUBTKILLER**.
-
-Focus on:
-
-- Common confusion
-- Tricky questions
-- Differences between similar concepts
-- Interview questions
-- Edge cases
-- Frequently misunderstood rules
-
----
+This repository follows a structured learning methodology designed to move from conceptual understanding to practical implementation and interview preparation.
 
 ---
 
 ## 💡 Learning Philosophy
 
-This repository is built around a simple idea:
+Learning Java effectively is not only about memorizing syntax.
 
-> **Do not just memorize Java. Understand it well enough to explain it, apply it, debug it, revise it, and answer questions about it.**
+The goal is to:
 
-The five-format approach allows the same concept to be approached from different learning perspectives without forcing every learner through the same level of detail.
-
-The **Java Programs** module complements the conceptual modules by providing hands-on coding practice.
-
----
+- Understand concepts clearly
+- Connect concepts with real-world scenarios
+- Practice through programming
+- Revise regularly
+- Identify and eliminate doubts
+- Develop problem-solving skills
+- Prepare for technical interviews
 
 ---
 
 ### The Overall Cycle
 
-**Learn → Understand → Code → Practice → Debug → Revise → Explain → Prepare**
-
----
-
----
-
-## 🛠️ Technology Coverage
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Java-orange?logo=openjdk" alt="Java">
-  <img src="https://img.shields.io/badge/OOP-blue" alt="OOP">
-  <img src="https://img.shields.io/badge/Exception%20Handling-red" alt="Exception Handling">
-  <img src="https://img.shields.io/badge/Multithreading-purple" alt="Multithreading">
-  <img src="https://img.shields.io/badge/Java%20Collections%20Framework-green" alt="JCF">
-  <img src="https://img.shields.io/badge/JDBC-brown" alt="JDBC">
-  <img src="https://img.shields.io/badge/Markdown-black?logo=markdown" alt="Markdown">
-</p>
-
----
-
----
-
-## 📊 Repository Coverage
-
-| Area | Status |
-|---|---|
-| Core Java | ✅ Covered |
-| OOP | ✅ Covered |
-| Exception Handling | ✅ Covered |
-| Multithreading | ✅ Covered |
-| Java Collections Framework | ✅ Covered |
-| JDBC | ✅ Covered |
-| Java Programs | ✅ Covered |
-| Five-Format Learning System | ✅ Covered |
-| Interview Preparation | ✅ Covered |
-| Documentation | 🔄 Continuously Improved |
-
----
-
----
-
-## 🌐 Portfolio
-
-**Developer Portfolio:**  
-https://shaikbasha-dev.github.io/Developer-Portfolio-Project/
-
----
-
----
-
-## 👨‍💻 Author
-
-**Shaik Mahaboob Basha**
-
-Java • Backend Development • Programming • Continuous Learning
-
-**GitHub:**  
-https://github.com/shaikbasha-dev
-
----
-
----
-
-## ⭐ Support
-
-If this repository helps you learn Java, revise concepts, practice programming, or prepare for interviews, consider giving it a ⭐.
-
----
-
----
-
-## 📌 Repository Status
-
-**Actively maintained and continuously improved.**
-
-New concepts, examples, Java programs, explanations, interview questions, and improvements may be added over time.
-
----
-
----
-
-## 📄 License
-
-This repository is created primarily for **educational and learning purposes**.
-
----
-
----
-
-<p align="center">
-  <b>☕ Learn Java • Understand Deeply • Practice Coding • Revise Smartly • Prepare Confidently</b>
-</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```text
+Learn
+  ↓
+Understand
+  ↓
+Practice
+  ↓
+Revise
+  ↓
+Test Yourself
+  ↓
+Solve Interview Questions
+  ↓
+Explain
+  ↓
+Repeat
+```
 
